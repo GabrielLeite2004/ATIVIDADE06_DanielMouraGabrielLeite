@@ -1,4 +1,4 @@
-package Q1;
+package Atividade.Q1;
 
 public class main {
     // Método principal para teste

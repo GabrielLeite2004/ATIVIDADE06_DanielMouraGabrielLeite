@@ -1,4 +1,4 @@
-package Q1;
+package Atividade.Q1;
 
 import java.util.HashMap;
 import java.util.LinkedList;
