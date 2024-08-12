@@ -5,22 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q2/DFS.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q2/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q3/VerificaVR.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q3/Vertice_Raiz.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q3/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q4/VerificaBipartido.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q4/Grafo_Bipartido.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q4/main.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q5/main.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q5/Árvore_Geradora_Mínima.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q6/Ciclo_Minimo.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Atividade/Q6/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Grafos.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Grafos.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Grafo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/main.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,8 +48,6 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.DFS.executor": "Run",
-    "Application.VerificaBipartido.executor": "Run",
-    "Application.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
