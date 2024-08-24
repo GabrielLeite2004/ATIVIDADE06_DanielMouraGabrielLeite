@@ -1,12 +1,18 @@
-package Atividade.Q1;
+package Atividade.Q2;
 
 import java.util.*;
 
-public class Grafo {
+public class Grafos {
     private Map<String, List<String>> adjacencias;
+    private Map<String, Integer> tempoChegada;
+    private Map<String, Integer> tempoPartida;
+    private int tempo;
 
-    public Grafo() {
+    public Grafos() {
         adjacencias = new HashMap<>();
+        tempoChegada = new HashMap<>();
+        tempoPartida = new HashMap<>();
+        tempo = 0;
     }
 
     // Inserir um vértice
@@ -66,26 +72,52 @@ public class Grafo {
         }
     }
 
+    // DFS para calcular os tempos de chegada e partida
+    public void DFS() {
+        Set<String> visitado = new HashSet<>();
+
+        for (String vertice : adjacencias.keySet()) {
+            if (!visitado.contains(vertice)) {
+                DFSVisit(vertice, visitado);
+            }
+        }
+
+        // Imprimir tempos de chegada e partida
+        for (String vertice : adjacencias.keySet()) {
+            System.out.println(vertice + " (Chegada: " + tempoChegada.get(vertice) + ", Partida: " + tempoPartida.get(vertice) + ")");
+        }
+    }
+
+    private void DFSVisit(String vertice, Set<String> visitado) {
+        visitado.add(vertice);
+        tempo++;
+        tempoChegada.put(vertice, tempo);
+
+        for (String adjacente : adjacencias.get(vertice)) {
+            if (!visitado.contains(adjacente)) {
+                DFSVisit(adjacente, visitado);
+            }
+        }
+
+        tempo++;
+        tempoPartida.put(vertice, tempo);
+    }
+
     public static void main(String[] args) {
-        Grafo grafo = new Grafo();
+        Grafos grafo = new Grafos();
 
         grafo.inserirVertice("A");
         grafo.inserirVertice("B");
         grafo.inserirVertice("C");
+        grafo.inserirVertice("D");
+        grafo.inserirVertice("E");
 
         grafo.inserirAresta("A", "B");
         grafo.inserirAresta("A", "C");
+        grafo.inserirAresta("B", "D");
+        grafo.inserirAresta("C", "E");
 
-        grafo.imprimirGrafo();
-
-        System.out.println("Adjacentes de A: " + grafo.obterAdjacentes("A"));
-
-        System.out.println("Existe aresta entre A e B? " + grafo.pesquisarAresta("A", "B"));
-
-        grafo.removerAresta("A", "B");
-        grafo.imprimirGrafo();
-
-        grafo.removerVertice("C");
-        grafo.imprimirGrafo();
+        grafo.DFS();
     }
 }
+

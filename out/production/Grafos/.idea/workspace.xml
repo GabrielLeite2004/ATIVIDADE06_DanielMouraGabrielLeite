@@ -5,17 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Atividade/Q2/DFS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q2/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q3/Vertice_Raiz.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q3/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q4/Grafo_Bipartido.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q4/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q5/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q5/Árvore_Geradora_Mínima.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q6/Ciclo_Minimo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q6/main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q2/Grafos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q3/GrafoDirecionado.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q1/main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q2/DFS.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q2/main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q3/VerificaVR.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q3/main.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +45,9 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Application.DFS.executor": "Run",
+    "Application.GrafoDirecionado.executor": "Run",
+    "Application.VerificaBipartido.executor": "Run",
+    "Application.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
