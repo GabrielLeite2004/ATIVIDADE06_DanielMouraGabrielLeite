@@ -54,11 +54,7 @@ Para executar o projeto, siga os passos abaixo:
    ```
 
 2. Compilar e Executar:
-   Dependendo da linguagem utilizada, compile e execute o código. Por exemplo, em Python:
-   ```bash
-   python3 questao1/main.py
-   python3 questao2/main.py
-   ```
+   Dependendo da linguagem utilizada, compile e execute o código. 
 
 3. Testar Funcionalidades:
    Cada questão tem um `main()` específico que executa as funcionalidades da questão. Utilize os exemplos de grafos nos respectivos `main()` para testar as implementações.
