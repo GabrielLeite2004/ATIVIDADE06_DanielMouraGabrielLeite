@@ -1,10 +1,9 @@
 package Atividade.Q1;
 
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.*;
 
 public class Grafo<TIPO> {
     private ArrayList<Vertice<TIPO>> vertices;
@@ -166,7 +165,7 @@ public class Grafo<TIPO> {
     }
 
     // Método para verificar se um vértice é raiz
-    private boolean verificarSeEhRaiz(int indiceVertice) {
+    private boolean VerificarSeÉRaiz(int indiceVertice) {
         // Realizar DFS a partir deste vértice para verificar se ele alcança todos os outros
         ArrayList<Integer> visitados = new ArrayList<>();
         dfsVerificarRaiz(indiceVertice, visitados);
@@ -204,7 +203,7 @@ public class Grafo<TIPO> {
         }
 
         // Verificar se o candidato a VR pode alcançar todos os vértices
-        if (candidatoVR != -1 && verificarSeEhRaiz(candidatoVR)) {
+        if (candidatoVR != -1 && VerificarSeÉRaiz(candidatoVR)) {
             System.out.println("O VR é : Vértice " + vertices.get(candidatoVR).getDado());
         } else {
             System.out.println("O grafo não possui VR");
@@ -266,5 +265,129 @@ public class Grafo<TIPO> {
         System.out.println("O grafo É bipartido: Partição 1 " + particao1 + " e Partição 2 " + particao2);
     }
 
+    public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            TIPO verticeA = (TIPO) partes[0];
+            TIPO verticeB = (TIPO) partes[1];
+            double peso = Double.parseDouble(partes[2]);
+
+            adicionarVertice(verticeA);
+            adicionarVertice(verticeB);
+            adicionarAresta(peso, verticeA, verticeB);
+        }
+        reader.close();
+    }
+
+    // Algoritmo de Prim
+    public List<Aresta<TIPO>> algoritmoDePrim() {
+        PriorityQueue<Aresta<TIPO>> arestasDisponiveis = new PriorityQueue<>(Comparator.comparing(Aresta::getPeso));
+        Set<Vertice<TIPO>> verticesNaArvore = new HashSet<>();
+        List<Aresta<TIPO>> mst = new ArrayList<>();
+
+        Vertice<TIPO> verticeInicial = vertices.get(0);
+        verticesNaArvore.add(verticeInicial);
+        arestasDisponiveis.addAll(verticeInicial.getArestasSaida());
+
+        while (!arestasDisponiveis.isEmpty() && mst.size() < vertices.size() - 1) {
+            Aresta<TIPO> menorAresta = arestasDisponiveis.poll();
+            Vertice<TIPO> verticeU = menorAresta.getInicio();
+            Vertice<TIPO> verticeV = menorAresta.getFim();
+
+            if (verticesNaArvore.contains(verticeU) && verticesNaArvore.contains(verticeV)) {
+                continue; // Ignora a aresta que formaria um ciclo
+            }
+
+            mst.add(menorAresta);
+
+            Vertice<TIPO> novoVertice = verticesNaArvore.contains(verticeU) ? verticeV : verticeU;
+            verticesNaArvore.add(novoVertice);
+            arestasDisponiveis.addAll(novoVertice.getArestasSaida());
+        }
+
+        return mst;
+    }
+
+    // Algoritmo de Kruskal
+    public List<Aresta<TIPO>> algoritmoDeKruskal() {
+        List<Aresta<TIPO>> mst = new ArrayList<>();
+        Collections.sort(arestas, Comparator.comparing(Aresta::getPeso));
+        Map<Vertice<TIPO>, Vertice<TIPO>> pais = new HashMap<>();
+
+        for (Vertice<TIPO> vertice : vertices) {
+            pais.put(vertice, vertice);
+        }
+
+        for (Aresta<TIPO> aresta : arestas) {
+            Vertice<TIPO> raizU = encontrarRaiz(pais, aresta.getInicio());
+            Vertice<TIPO> raizV = encontrarRaiz(pais, aresta.getFim());
+
+            if (!raizU.equals(raizV)) {
+                mst.add(aresta);
+                pais.put(raizU, raizV); // União dos conjuntos
+            }
+        }
+
+        return mst;
+    }
+
+    private Vertice<TIPO> encontrarRaiz(Map<Vertice<TIPO>, Vertice<TIPO>> pais, Vertice<TIPO> vertice) {
+        while (!pais.get(vertice).equals(vertice)) {
+            vertice = pais.get(vertice);
+        }
+        return vertice;
+    }
+
+    // Algoritmo de Boruvka
+    public List<Aresta<TIPO>> algoritmoDeBoruvka() {
+        List<Aresta<TIPO>> mst = new ArrayList<>();
+        Map<Vertice<TIPO>, Vertice<TIPO>> componente = new HashMap<>();
+
+        for (Vertice<TIPO> vertice : vertices) {
+            componente.put(vertice, vertice);
+        }
+
+        int componentesRestantes = vertices.size();
+
+        while (componentesRestantes > 1) {
+            Map<Vertice<TIPO>, Aresta<TIPO>> menorAresta = new HashMap<>();
+
+            for (Aresta<TIPO> aresta : arestas) {
+                Vertice<TIPO> componenteU = encontrarRaiz(componente, aresta.getInicio());
+                Vertice<TIPO> componenteV = encontrarRaiz(componente, aresta.getFim());
+
+                if (!componenteU.equals(componenteV)) {
+                    if (!menorAresta.containsKey(componenteU) || aresta.getPeso() < menorAresta.get(componenteU).getPeso()) {
+                        menorAresta.put(componenteU, aresta);
+                    }
+                    if (!menorAresta.containsKey(componenteV) || aresta.getPeso() < menorAresta.get(componenteV).getPeso()) {
+                        menorAresta.put(componenteV, aresta);
+                    }
+                }
+            }
+
+            for (Aresta<TIPO> aresta : menorAresta.values()) {
+                Vertice<TIPO> componenteU = encontrarRaiz(componente, aresta.getInicio());
+                Vertice<TIPO> componenteV = encontrarRaiz(componente, aresta.getFim());
+
+                if (!componenteU.equals(componenteV)) {
+                    mst.add(aresta);
+                    componente.put(componenteU, componenteV);
+                    componentesRestantes--;
+                }
+            }
+        }
+        return mst;
+    }
+
+    // Método auxiliar para imprimir as arestas da MST
+    public void imprimirMST(List<Aresta<TIPO>> mst) {
+        for (Aresta<TIPO> aresta : mst) {
+            System.out.println(aresta.getInicio().getDado() + " -- " + aresta.getFim().getDado() + " : " + aresta.getPeso());
+        }
+    }
 
 }

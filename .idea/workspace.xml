@@ -5,32 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Atividade/Q1/Aresta.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q1/MenuGrafo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q1/Vertice.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q1/main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q2/MenuDFS.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q3/MenuVR.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Atividade/Q4/MenuBipartido.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Arquivos/Arquivo" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q2/DFS.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q5/MenuAlgoritmos.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Atividade/Q6/EstudoDeCaso.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q1/Aresta.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Q1/Aresta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Q1/Grafo.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q2/Grafos.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q3/GrafoDirecionado.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q4/Grafo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q5/Aresta.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q5/Grafo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q6/Aresta.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Q6/a.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q2/Grafos.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q3/GrafoDirecionado.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q4/Grafo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q5/Aresta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q5/Aresta.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q5/Grafo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q5/Grafo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q6/Aresta.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q6/Aresta.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q6/Grafo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Q6/Grafo.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Grafo.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Q1/Vertice.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Q1/Vertice.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

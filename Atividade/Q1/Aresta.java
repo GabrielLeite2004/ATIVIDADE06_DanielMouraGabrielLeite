@@ -34,6 +34,4 @@ public class Aresta<TIPO> {
     public void setFim(Vertice<TIPO> fim) {
         this.fim = fim;
     }
-
-
 }
