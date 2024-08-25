@@ -150,13 +150,13 @@ public class Grafo<TIPO> {
 
         for (int i = 0; i < vertices.size(); i++) {
             if (tempoChegada[i] == -1) {
-                dfsVisit(i);
+                MétodoRecursivoDFS(i);
             }
         }
     }
 
     // Método recursivo para DFS
-    private void dfsVisit(int indiceVertice) {
+    private void MétodoRecursivoDFS(int indiceVertice) {
         tempo++;
         tempoChegada[indiceVertice] = tempo;
 
@@ -164,7 +164,7 @@ public class Grafo<TIPO> {
         for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
             int indiceProximo = vertices.indexOf(aresta.getFim());
             if (tempoChegada[indiceProximo] == -1) {
-                dfsVisit(indiceProximo);
+                MétodoRecursivoDFS(indiceProximo);
             }
         }
 
@@ -179,19 +179,6 @@ public class Grafo<TIPO> {
         dfsVerificarRaiz(indiceVertice, visitados);
 
         return visitados.size() == vertices.size();
-    }
-
-    // Método auxiliar para DFS a partir do candidato a VR
-    private void dfsVerificarRaiz(int indiceVertice, ArrayList<Integer> visitados) {
-        visitados.add(indiceVertice);
-        Vertice<TIPO> vertice = vertices.get(indiceVertice);
-
-        for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
-            int indiceProximo = vertices.indexOf(aresta.getFim());
-            if (!visitados.contains(indiceProximo)) {
-                dfsVerificarRaiz(indiceProximo, visitados);
-            }
-        }
     }
 
     // Método para encontrar e imprimir o VR
@@ -211,11 +198,38 @@ public class Grafo<TIPO> {
         }
 
         // Verificar se o candidato a VR pode alcançar todos os vértices
-        if (candidatoVR != -1 && VerificarSeÉRaiz(candidatoVR)) {
-            System.out.println("O VR é : Vértice " + vertices.get(candidatoVR).getDado());
+        if (candidatoVR != -1) {
+            ArrayList<Integer> visitados = new ArrayList<>();
+            dfsVerificarRaiz(candidatoVR, visitados);
+
+            if (visitados.size() == vertices.size()) {
+                System.out.println("O VR é : Vértice " + vertices.get(candidatoVR).getDado());
+            } else {
+                System.out.println("O grafo não possui VR");
+            }
         } else {
             System.out.println("O grafo não possui VR");
         }
+    }
+
+    // Método auxiliar para DFS a partir do candidato a VR
+    private void dfsVerificarRaiz(int indiceVertice, ArrayList<Integer> visitados) {
+        visitados.add(indiceVertice);
+        Vertice<TIPO> vertice = vertices.get(indiceVertice);
+
+        for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
+            int indiceProximo = vertices.indexOf(aresta.getFim());
+            if (!visitados.contains(indiceProximo)) {
+                dfsVerificarRaiz(indiceProximo, visitados);
+            }
+        }
+    }
+
+    private Vertice<TIPO> encontrarRaiz(Map<Vertice<TIPO>, Vertice<TIPO>> pais, Vertice<TIPO> vertice) {
+        while (!pais.get(vertice).equals(vertice)) {
+            vertice = pais.get(vertice);
+        }
+        return vertice;
     }
 
     // Método para verificar se o grafo é bipartido usando DFS
@@ -275,28 +289,45 @@ public class Grafo<TIPO> {
 
     // Algoritmo de Prim
     public List<Aresta<TIPO>> algoritmoDePrim() {
-        PriorityQueue<Aresta<TIPO>> arestasDisponiveis = new PriorityQueue<>(Comparator.comparing(Aresta::getPeso));
-        Set<Vertice<TIPO>> verticesNaArvore = new HashSet<>();
+        // Lista que armazenará as arestas da árvore geradora mínima (MST)
         List<Aresta<TIPO>> mst = new ArrayList<>();
 
-        Vertice<TIPO> verticeInicial = vertices.get(0);
-        verticesNaArvore.add(verticeInicial);
-        arestasDisponiveis.addAll(verticeInicial.getArestasSaida());
+        // Array para indicar se um vértice está na árvore
+        boolean[] naArvore = new boolean[vertices.size()];
 
-        while (!arestasDisponiveis.isEmpty() && mst.size() < vertices.size() - 1) {
-            Aresta<TIPO> menorAresta = arestasDisponiveis.poll();
-            Vertice<TIPO> verticeU = menorAresta.getInicio();
-            Vertice<TIPO> verticeV = menorAresta.getFim();
+        // Inicializa o primeiro vértice (inicialmente na posição 0) como na árvore
+        naArvore[0] = true;
 
-            if (verticesNaArvore.contains(verticeU) && verticesNaArvore.contains(verticeV)) {
-                continue; // Ignora a aresta que formaria um ciclo
+        // Enquanto o número de arestas na MST for menor que o número de vértices - 1
+        while (mst.size() < vertices.size() - 1) {
+            Aresta<TIPO> menorAresta = null;
+            int verticeEscolhido = -1;
+
+            // Para cada vértice que já está na árvore, encontramos a menor aresta que conecta a árvore a um novo vértice
+            for (int i = 0; i < vertices.size(); i++) {
+                if (naArvore[i]) {
+                    Vertice<TIPO> vertice = vertices.get(i);
+                    for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
+                        int indiceDestino = vertices.indexOf(aresta.getFim());
+
+                        // Se o vértice destino ainda não estiver na árvore e a aresta é a menor até agora
+                        if (!naArvore[indiceDestino]) {
+                            if (menorAresta == null || aresta.getPeso() < menorAresta.getPeso()) {
+                                menorAresta = aresta;
+                                verticeEscolhido = indiceDestino;
+                            }
+                        }
+                    }
+                }
             }
 
-            mst.add(menorAresta);
-
-            Vertice<TIPO> novoVertice = verticesNaArvore.contains(verticeU) ? verticeV : verticeU;
-            verticesNaArvore.add(novoVertice);
-            arestasDisponiveis.addAll(novoVertice.getArestasSaida());
+            // Se encontramos uma aresta válida, adicionamos à MST e marcamos o novo vértice
+            if (menorAresta != null && verticeEscolhido != -1) {
+                mst.add(menorAresta);
+                naArvore[verticeEscolhido] = true; // Marca o vértice como parte da árvore
+            } else {
+                break; // Não existem mais arestas válidas para adicionar, o algoritmo termina
+            }
         }
 
         return mst;
@@ -305,72 +336,90 @@ public class Grafo<TIPO> {
     // Algoritmo de Kruskal
     public List<Aresta<TIPO>> algoritmoDeKruskal() {
         List<Aresta<TIPO>> mst = new ArrayList<>();
-        Collections.sort(arestas, Comparator.comparing(Aresta::getPeso));
-        Map<Vertice<TIPO>, Vertice<TIPO>> pais = new HashMap<>();
 
-        for (Vertice<TIPO> vertice : vertices) {
-            pais.put(vertice, vertice);
+        // Ordena as arestas pelo peso
+        Collections.sort(arestas, Comparator.comparing(Aresta::getPeso));
+
+        // Array para rastrear o conjunto ao qual cada vértice pertence (a "floresta")
+        int[] conjuntos = new int[vertices.size()];
+
+        // Inicialmente, cada vértice pertence ao seu próprio conjunto (árvore independente)
+        for (int i = 0; i < vertices.size(); i++) {
+            conjuntos[i] = i; // Cada vértice é o representante de seu próprio conjunto
         }
 
+        // Processa cada aresta, adicionando-a à MST se não formar um ciclo
         for (Aresta<TIPO> aresta : arestas) {
-            Vertice<TIPO> raizU = encontrarRaiz(pais, aresta.getInicio());
-            Vertice<TIPO> raizV = encontrarRaiz(pais, aresta.getFim());
+            int indiceU = vertices.indexOf(aresta.getInicio());
+            int indiceV = vertices.indexOf(aresta.getFim());
 
-            if (!raizU.equals(raizV)) {
+            int conjuntoU = encontrar(conjuntos, indiceU);
+            int conjuntoV = encontrar(conjuntos, indiceV);
+
+            // Se os vértices pertencem a conjuntos diferentes, adicione a aresta à MST
+            if (conjuntoU != conjuntoV) {
                 mst.add(aresta);
-                pais.put(raizU, raizV); // União dos conjuntos
+                unir(conjuntos, conjuntoU, conjuntoV);
+            }
+
+            // Se já temos n-1 arestas na MST, podemos parar
+            if (mst.size() == vertices.size() - 1) {
+                break;
             }
         }
 
         return mst;
     }
 
-    private Vertice<TIPO> encontrarRaiz(Map<Vertice<TIPO>, Vertice<TIPO>> pais, Vertice<TIPO> vertice) {
-        while (!pais.get(vertice).equals(vertice)) {
-            vertice = pais.get(vertice);
-        }
-        return vertice;
-    }
-
     // Algoritmo de Boruvka
     public List<Aresta<TIPO>> algoritmoDeBoruvka() {
         List<Aresta<TIPO>> mst = new ArrayList<>();
-        Map<Vertice<TIPO>, Vertice<TIPO>> componente = new HashMap<>();
 
-        for (Vertice<TIPO> vertice : vertices) {
-            componente.put(vertice, vertice);
+        // Array para rastrear o componente ao qual cada vértice pertence
+        int[] componentes = new int[vertices.size()];
+
+        // Inicializa cada vértice como seu próprio componente
+        for (int i = 0; i < vertices.size(); i++) {
+            componentes[i] = i;  // Cada vértice é o representante de seu próprio componente
         }
 
         int componentesRestantes = vertices.size();
 
+        // Enquanto existir mais de um componente
         while (componentesRestantes > 1) {
-            Map<Vertice<TIPO>, Aresta<TIPO>> menorAresta = new HashMap<>();
+            Aresta<TIPO>[] menorArestaPorComponente = new Aresta[vertices.size()];
 
+            // Encontrar a menor aresta que conecta dois componentes diferentes
             for (Aresta<TIPO> aresta : arestas) {
-                Vertice<TIPO> componenteU = encontrarRaiz(componente, aresta.getInicio());
-                Vertice<TIPO> componenteV = encontrarRaiz(componente, aresta.getFim());
+                int componenteU = encontrar(componentes, vertices.indexOf(aresta.getInicio()));
+                int componenteV = encontrar(componentes, vertices.indexOf(aresta.getFim()));
 
-                if (!componenteU.equals(componenteV)) {
-                    if (!menorAresta.containsKey(componenteU) || aresta.getPeso() < menorAresta.get(componenteU).getPeso()) {
-                        menorAresta.put(componenteU, aresta);
+                if (componenteU != componenteV) {
+                    // Verifica e armazena a menor aresta para cada componente
+                    if (menorArestaPorComponente[componenteU] == null || aresta.getPeso() < menorArestaPorComponente[componenteU].getPeso()) {
+                        menorArestaPorComponente[componenteU] = aresta;
                     }
-                    if (!menorAresta.containsKey(componenteV) || aresta.getPeso() < menorAresta.get(componenteV).getPeso()) {
-                        menorAresta.put(componenteV, aresta);
+                    if (menorArestaPorComponente[componenteV] == null || aresta.getPeso() < menorArestaPorComponente[componenteV].getPeso()) {
+                        menorArestaPorComponente[componenteV] = aresta;
                     }
                 }
             }
 
-            for (Aresta<TIPO> aresta : menorAresta.values()) {
-                Vertice<TIPO> componenteU = encontrarRaiz(componente, aresta.getInicio());
-                Vertice<TIPO> componenteV = encontrarRaiz(componente, aresta.getFim());
+            // Adicionar as arestas de menor custo à MST e unir os componentes
+            for (Aresta<TIPO> aresta : menorArestaPorComponente) {
+                if (aresta != null) {
+                    int componenteU = encontrar(componentes, vertices.indexOf(aresta.getInicio()));
+                    int componenteV = encontrar(componentes, vertices.indexOf(aresta.getFim()));
 
-                if (!componenteU.equals(componenteV)) {
-                    mst.add(aresta);
-                    componente.put(componenteU, componenteV);
-                    componentesRestantes--;
+                    if (componenteU != componenteV) {
+                        mst.add(aresta);
+                        unir(componentes, componenteU, componenteV);
+                        componentesRestantes--;
+                    }
                 }
             }
         }
+
         return mst;
     }
 
@@ -417,7 +466,6 @@ public class Grafo<TIPO> {
         }
     }
 
-
     public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
         String linha;
@@ -445,5 +493,22 @@ public class Grafo<TIPO> {
         reader.close();
     }
 
+    // Função auxiliar para encontrar o representante do conjunto/componente ao qual um vértice pertence
+    private int encontrar(int[] representante, int vertice) {
+        // Segue o encadeamento até encontrar o representante do conjunto/componente
+        if (representante[vertice] != vertice) {
+            representante[vertice] = encontrar(representante, representante[vertice]); // Compressão de caminho
+        }
+        return representante[vertice];
+    }
 
+    // Função auxiliar para unir conjuntos/componentes
+    private void unir(int[] representante, int conjuntoU, int conjuntoV) {
+        // Unir todos os vértices do conjunto/componente V ao conjunto/componente U
+        for (int i = 0; i < representante.length; i++) {
+            if (representante[i] == conjuntoV) {
+                representante[i] = conjuntoU;
+            }
+        }
+    }
 }

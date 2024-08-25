@@ -59,11 +59,13 @@ public class Menu {
         private static void menuAdicoesRemocoes() {
             int opcao;
             do {
-                System.out.println("\n--- Adições e Remoções ---");
+                System.out.println("\n--- Adições, Remoções e Pesquisas ---");
                 System.out.println("1. Adicionar Vértice");
                 System.out.println("2. Remover Vértice");
                 System.out.println("3. Adicionar Aresta");
                 System.out.println("4. Remover Aresta");
+                System.out.println("5. Pesquisar Vértice");
+                System.out.println("6. Pesquisar Aresta");
                 System.out.println("0. Voltar ao Menu Principal");
                 System.out.print("Escolha uma opção: ");
                 opcao = scanner.nextInt();
@@ -82,13 +84,18 @@ public class Menu {
                     case 4:
                         removerAresta();
                         break;
+                    case 5:
+                        pesquisarVertice();
+                        break;
+                    case 6:
+                        pesquisarAresta();
+                        break;
                     case 0:
                         System.out.println("Voltando ao Menu Principal...");
                         break;
                     default:
                         System.out.println("Opção inválida! Tente novamente.");
                 }
-
             } while (opcao != 0);
         }
 
@@ -229,6 +236,30 @@ public class Menu {
 
             grafo.removerAresta(inicio, fim);
             System.out.println("Aresta removida com sucesso!");
+        }
+
+        private static void pesquisarVertice() {
+            System.out.print("Digite o nome do vértice a ser pesquisado: ");
+            String vertice = scanner.nextLine();
+            boolean encontrado = grafo.pesquisarVertice(vertice);
+            if (encontrado) {
+                System.out.println("Vértice " + vertice + " encontrado no grafo.");
+            } else {
+                System.out.println("Vértice " + vertice + " não encontrado no grafo.");
+            }
+        }
+
+        private static void pesquisarAresta() {
+            System.out.print("Digite o vértice de início: ");
+            String inicio = scanner.nextLine();
+            System.out.print("Digite o vértice de fim: ");
+            String fim = scanner.nextLine();
+            boolean encontrada = grafo.pesquisarAresta(inicio, fim);
+            if (encontrada) {
+                System.out.println("Aresta de " + inicio + " para " + fim + " encontrada no grafo.");
+            } else {
+                System.out.println("Aresta de " + inicio + " para " + fim + " não encontrada no grafo.");
+            }
         }
 
         private static void buscaEmLargura() {

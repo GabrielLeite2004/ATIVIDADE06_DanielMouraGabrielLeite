@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Atividade/Util/EstudoDeCaso.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Util/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Util/Grafo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Util/Grafo.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -34,25 +33,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Application.DFS.executor": "Run",
-    "Application.EstudoDeCaso.executor": "Run",
-    "Application.Grafo.executor": "Run",
-    "Application.GrafoDirecionado.executor": "Run",
-    "Application.MenuDFS.executor": "Debug",
-    "Application.MenuVR.executor": "Debug",
-    "Application.VerificaBipartido.executor": "Run",
-    "Application.main.executor": "Run",
-    "Application.o.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Application.DFS.executor&quot;: &quot;Run&quot;,
+    &quot;Application.EstudoDeCaso.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Grafo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.GrafoDirecionado.executor&quot;: &quot;Run&quot;,
+    &quot;Application.Menu$MenuGrafo.executor&quot;: &quot;Run&quot;,
+    &quot;Application.MenuDFS.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.MenuVR.executor&quot;: &quot;Debug&quot;,
+    &quot;Application.VerificaBipartido.executor&quot;: &quot;Run&quot;,
+    &quot;Application.main.executor&quot;: &quot;Run&quot;,
+    &quot;Application.o.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jglei\Documents\GitHub\Grafos" />
