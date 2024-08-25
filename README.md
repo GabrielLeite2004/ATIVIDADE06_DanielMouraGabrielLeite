@@ -66,7 +66,7 @@ B;D;3.0
 
 Cada linha representa uma aresta entre dois vértices com um peso associado.
 
-### Geração de Ciclo Mínimo ###
+### Geração de Ciclo Mínimo (Baseado no Algoritmo Prim) ###
 
 Após gerar a MST usando qualquer um dos algoritmos disponíveis, você pode gerar e visualizar o ciclo mínimo que percorre todos os vértices da árvore.
 
