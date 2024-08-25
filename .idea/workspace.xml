@@ -4,17 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Arquivos/Arquivo" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Arquivos/Arquivo" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Util/EstudoDeCaso.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/Util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Util/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Atividade/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/EstudoDeCaso.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/Menu$MenuGrafo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/Menu$MenuGrafo.class" afterDir="false" />
-    </list>
+    <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

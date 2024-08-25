@@ -15,7 +15,57 @@ public class Menu {
             carregarGrafo(); // Carrega o grafo do arquivo no início
             int opcao;
             do {
-                exibirMenu();
+                exibirMenuPrincipal();
+                opcao = scanner.nextInt();
+                scanner.nextLine(); // Consumir a nova linha
+
+                switch (opcao) {
+                    case 1:
+                        menuAdicoesRemocoes();
+                        break;
+                    case 2:
+                        menuBuscar();
+                        break;
+                    case 3:
+                        menuBipartidoRaiz();
+                        break;
+                    case 4:
+                        menuAlgoritmosMST();
+                        break;
+                    case 5:
+                        gerarCicloMinimo();
+                        break;
+                    case 0:
+                        System.out.println("Saindo...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+                }
+
+            } while (opcao != 0);
+        }
+
+        private static void exibirMenuPrincipal() {
+            System.out.println("\n--- Menu de Operações no Grafo ---");
+            System.out.println("1. Adições e Remoções");
+            System.out.println("2. Buscar");
+            System.out.println("3. Bipartido e Raiz");
+            System.out.println("4. Algoritmos de MST");
+            System.out.println("5. Gerar Ciclo Mínimo com Base na MST");
+            System.out.println("0. Sair");
+            System.out.print("Escolha uma opção: ");
+        }
+
+        private static void menuAdicoesRemocoes() {
+            int opcao;
+            do {
+                System.out.println("\n--- Adições e Remoções ---");
+                System.out.println("1. Adicionar Vértice");
+                System.out.println("2. Remover Vértice");
+                System.out.println("3. Adicionar Aresta");
+                System.out.println("4. Remover Aresta");
+                System.out.println("0. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
                 opcao = scanner.nextInt();
                 scanner.nextLine(); // Consumir a nova linha
 
@@ -32,35 +82,8 @@ public class Menu {
                     case 4:
                         removerAresta();
                         break;
-                    case 5:
-                        buscaEmLargura();
-                        break;
-                    case 6:
-                        buscaEmProfundidade();
-                        break;
-                    case 7:
-                        imprimirTemposDFS();
-                        break;
-                    case 8:
-                        verificarBipartido();
-                        break;
-                    case 9:
-                        encontrarVR();
-                        break;
-                    case 10:
-                        executarPrim();
-                        break;
-                    case 11:
-                        executarKruskal();
-                        break;
-                    case 12:
-                        executarBoruvka();
-                        break;
-                    case 13:
-                        gerarCicloMinimo();
-                        break;
                     case 0:
-                        System.out.println("Saindo...");
+                        System.out.println("Voltando ao Menu Principal...");
                         break;
                     default:
                         System.out.println("Opção inválida! Tente novamente.");
@@ -69,23 +92,96 @@ public class Menu {
             } while (opcao != 0);
         }
 
-        private static void exibirMenu() {
-            System.out.println("\n--- Menu de Operações no Grafo ---");
-            System.out.println("1. Adicionar Vértice");
-            System.out.println("2. Remover Vértice");
-            System.out.println("3. Adicionar Aresta");
-            System.out.println("4. Remover Aresta");
-            System.out.println("5. Executar Busca em Largura (BFS)");
-            System.out.println("6. Executar Busca em Profundidade (DFS)");
-            System.out.println("7. Imprimir Tempos de Chegada e Partida da DFS");
-            System.out.println("8. Verificar se o Grafo é Bipartido");
-            System.out.println("9. Encontrar Vértice Raiz (VR)");
-            System.out.println("10. Gerar MST com Prim");
-            System.out.println("11. Gerar MST com Kruskal");
-            System.out.println("12. Gerar MST com Boruvka");
-            System.out.println("13. Gerar Ciclo Mínimo com Base na MST");
-            System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
+        private static void menuBuscar() {
+            int opcao;
+            do {
+                System.out.println("\n--- Buscar ---");
+                System.out.println("1. Executar Busca em Largura (BFS)");
+                System.out.println("2. Executar Busca em Profundidade (DFS)");
+                System.out.println("3. Imprimir Tempos de Chegada e Partida da DFS");
+                System.out.println("0. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+                opcao = scanner.nextInt();
+                scanner.nextLine(); // Consumir a nova linha
+
+                switch (opcao) {
+                    case 1:
+                        buscaEmLargura();
+                        break;
+                    case 2:
+                        buscaEmProfundidade();
+                        break;
+                    case 3:
+                        imprimirTemposDFS();
+                        break;
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+                }
+
+            } while (opcao != 0);
+        }
+
+        private static void menuBipartidoRaiz() {
+            int opcao;
+            do {
+                System.out.println("\n--- Bipartido e Raiz ---");
+                System.out.println("1. Verificar se o Grafo é Bipartido");
+                System.out.println("2. Encontrar Vértice Raiz (VR)");
+                System.out.println("0. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+                opcao = scanner.nextInt();
+                scanner.nextLine(); // Consumir a nova linha
+
+                switch (opcao) {
+                    case 1:
+                        verificarBipartido();
+                        break;
+                    case 2:
+                        encontrarVR();
+                        break;
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+                }
+
+            } while (opcao != 0);
+        }
+
+        private static void menuAlgoritmosMST() {
+            int opcao;
+            do {
+                System.out.println("\n--- Algoritmos de MST ---");
+                System.out.println("1. Gerar MST com Prim");
+                System.out.println("2. Gerar MST com Kruskal");
+                System.out.println("3. Gerar MST com Boruvka");
+                System.out.println("0. Voltar ao Menu Principal");
+                System.out.print("Escolha uma opção: ");
+                opcao = scanner.nextInt();
+                scanner.nextLine(); // Consumir a nova linha
+
+                switch (opcao) {
+                    case 1:
+                        executarPrim();
+                        break;
+                    case 2:
+                        executarKruskal();
+                        break;
+                    case 3:
+                        executarBoruvka();
+                        break;
+                    case 0:
+                        System.out.println("Voltando ao Menu Principal...");
+                        break;
+                    default:
+                        System.out.println("Opção inválida! Tente novamente.");
+                }
+
+            } while (opcao != 0);
         }
 
         private static void carregarGrafo() {
