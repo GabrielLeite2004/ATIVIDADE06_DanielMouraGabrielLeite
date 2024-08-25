@@ -18,38 +18,88 @@ public class Grafo<TIPO> {
         this.tempo = 0;
     }
 
-    public void adicionarVertice(TIPO dado){
+    public void adicionarVertice(TIPO dado) {
+        // Verificar se o vértice já existe
+        for (Vertice<TIPO> vertice : vertices) {
+            if (vertice.getDado().equals(dado)) {
+                System.out.println("Vértice '" + dado + "' já existe e não será adicionado.");
+                return; // Não adiciona o vértice se já existir
+            }
+        }
+
+        // Se o vértice não existir, adiciona-o à lista
         Vertice<TIPO> novoVertice = new Vertice<TIPO>(dado);
         this.vertices.add(novoVertice);
+        System.out.println("Vértice '" + dado + "' adicionado com sucesso.");
     }
 
     public void removerVertice(TIPO dado) {
         Vertice<TIPO> vertice = this.getVertice(dado);
         if (vertice != null) {
             // Remover as arestas associadas ao vértice
-            this.arestas.removeIf(aresta -> aresta.getInicio().equals(vertice) || aresta.getFim().equals(vertice));
+            boolean arestaRemovida = this.arestas.removeIf(aresta -> aresta.getInicio().equals(vertice) || aresta.getFim().equals(vertice));
 
-            // Remover o vértice em si
-            this.vertices.remove(vertice);
+            // Remover o vértice em si, se ele ainda existir na lista
+            if (this.vertices.remove(vertice)) {
+                System.out.println("Vértice '" + dado + "' removido com sucesso.");
+            } else {
+                System.out.println("Vértice '" + dado + "' não foi encontrado para remoção.");
+            }
+        } else {
+            System.out.println("Vértice '" + dado + "' não encontrado.");
         }
     }
 
-    public void adicionarAresta(Double peso, TIPO dadoInicio, TIPO dadoFim){
+    public void adicionarAresta(Double peso, TIPO dadoInicio, TIPO dadoFim) {
         Vertice<TIPO> inicio = this.getVertice(dadoInicio);
         Vertice<TIPO> fim = this.getVertice(dadoFim);
-        Aresta<TIPO> aresta = new Aresta<TIPO>(peso, inicio, fim);
-        inicio.adicionarArestaSaida(aresta);
-        fim.adicionarArestaEntrada(aresta);
-        this.arestas.add(aresta);
+
+        if (inicio == null) {
+            System.out.println("Vértice de início '" + dadoInicio + "' não encontrado.");
+            return;
+        }
+        if (fim == null) {
+            System.out.println("Vértice de fim '" + dadoFim + "' não encontrado.");
+            return;
+        }
+
+        // Verificar se a aresta já existe
+        for (Aresta<TIPO> aresta : this.arestas) {
+            if ((aresta.getInicio().equals(inicio) && aresta.getFim().equals(fim)) ||
+                    (aresta.getInicio().equals(fim) && aresta.getFim().equals(inicio))) {
+                System.out.println("Aresta entre '" + dadoInicio + "' e '" + dadoFim + "' já existe.");
+                return; // Não adiciona a aresta se já existir
+            }
+        }
+
+        // Se a aresta não existir, adiciona-a à lista de arestas
+        Aresta<TIPO> novaAresta = new Aresta<TIPO>(peso, inicio, fim);
+        inicio.adicionarArestaSaida(novaAresta);
+        fim.adicionarArestaEntrada(novaAresta);
+        this.arestas.add(novaAresta);
+        System.out.println("Aresta entre '" + dadoInicio + "' e '" + dadoFim + "' adicionada com sucesso.");
     }
 
     public void removerAresta(TIPO dadoInicio, TIPO dadoFim) {
         Vertice<TIPO> inicio = this.getVertice(dadoInicio);
         Vertice<TIPO> fim = this.getVertice(dadoFim);
-        if (inicio != null && fim != null) {
-            this.arestas.removeIf(aresta -> aresta.getInicio().equals(inicio) && aresta.getFim().equals(fim));
+
+        if (inicio == null) {
+            System.out.println("Vértice de início '" + dadoInicio + "' não encontrado.");
+            return;
+        }
+        if (fim == null) {
+            System.out.println("Vértice de fim '" + dadoFim + "' não encontrado.");
+            return;
+        }
+
+        boolean arestaRemovida = this.arestas.removeIf(aresta -> aresta.getInicio().equals(inicio) && aresta.getFim().equals(fim));
+        if (arestaRemovida) {
             inicio.getArestasSaida().removeIf(aresta -> aresta.getFim().equals(fim));
             fim.getArestasEntrada().removeIf(aresta -> aresta.getInicio().equals(inicio));
+            System.out.println("Aresta entre '" + dadoInicio + "' e '" + dadoFim + "' removida com sucesso.");
+        } else {
+            System.out.println("Aresta entre '" + dadoInicio + "' e '" + dadoFim + "' não encontrada.");
         }
     }
 

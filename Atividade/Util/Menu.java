@@ -105,7 +105,6 @@ public class Menu {
                 System.out.println("\n--- Buscar ---");
                 System.out.println("1. Executar Busca em Largura (BFS)");
                 System.out.println("2. Executar Busca em Profundidade (DFS)");
-                System.out.println("3. Imprimir Tempos de Chegada e Partida da DFS");
                 System.out.println("0. Voltar ao Menu Principal");
                 System.out.print("Escolha uma opção: ");
                 opcao = scanner.nextInt();
@@ -118,16 +117,12 @@ public class Menu {
                     case 2:
                         buscaEmProfundidade();
                         break;
-                    case 3:
-                        imprimirTemposDFS();
-                        break;
                     case 0:
                         System.out.println("Voltando ao Menu Principal...");
                         break;
                     default:
                         System.out.println("Opção inválida! Tente novamente.");
                 }
-
             } while (opcao != 0);
         }
 
@@ -212,7 +207,6 @@ public class Menu {
             System.out.print("Digite o nome do vértice a ser removido: ");
             String vertice = scanner.nextLine();
             grafo.removerVertice(vertice);
-            System.out.println("Vértice removido com sucesso!");
         }
 
         private static void adicionarAresta() {
@@ -235,7 +229,6 @@ public class Menu {
             String fim = scanner.nextLine();
 
             grafo.removerAresta(inicio, fim);
-            System.out.println("Aresta removida com sucesso!");
         }
 
         private static void pesquisarVertice() {
@@ -270,11 +263,6 @@ public class Menu {
         private static void buscaEmProfundidade() {
             System.out.println("Executando busca em profundidade (DFS):");
             grafo.executarDFS();
-        }
-
-        private static void imprimirTemposDFS() {
-            System.out.println("Imprimindo tempos de chegada e partida (DFS):");
-            grafo.imprimirTempos();
         }
 
         private static void verificarBipartido() {
