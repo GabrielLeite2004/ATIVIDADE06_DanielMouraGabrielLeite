@@ -1,7 +1,3 @@
-Aqui está um exemplo de um arquivo README que você pode usar para postar no GitHub e compartilhar com o seu professor:
-
----
-
 # Projeto de Grafo em Java
 
 ## Descrição
@@ -101,5 +97,3 @@ Para dúvidas ou mais informações, entre em contato com [Seu Nome] via [Seu Em
 ### Observação:
 
 Certifique-se de ajustar o arquivo `Arquivo.txt` no diretório `Atividade/Arquivos/` para incluir as arestas e vértices que deseja testar. As instruções acima pressupõem que você esteja familiarizado com a estrutura básica de um projeto Java e a execução via linha de comando. 
-
-Este README foi projetado para fornecer uma visão geral clara e completa do projeto, permitindo que seu professor compreenda rapidamente as funcionalidades e estrutura do código.
