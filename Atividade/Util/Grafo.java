@@ -8,7 +8,6 @@ import java.util.*;
 public class Grafo<TIPO> {
     private ArrayList<Vertice<TIPO>> vertices;
     private ArrayList<Aresta<TIPO>> arestas;
-
     private int tempo;
     private int[] tempoChegada;
     private int[] tempoPartida;
@@ -99,6 +98,12 @@ public class Grafo<TIPO> {
         for (int i = 0; i < n; i++) {
             this.tempoChegada[i] = -1;
             this.tempoPartida[i] = -1;
+        }
+    }
+
+    public void imprimirTempos() {
+        for (int i = 0; i < vertices.size(); i++) {
+            System.out.println(vertices.get(i).getDado() + " (Chegada: " + tempoChegada[i] + ", Partida: " + tempoPartida[i] + ")");
         }
     }
 
@@ -375,6 +380,43 @@ public class Grafo<TIPO> {
             System.out.println(aresta.getInicio().getDado() + " -- " + aresta.getFim().getDado() + " : " + aresta.getPeso());
         }
     }
+
+    public List<TIPO> gerarCicloMinimo() {
+        List<Aresta<TIPO>> mst = this.algoritmoDePrim(); // Use o algoritmo que preferir
+        Grafo<TIPO> mstGrafo = new Grafo<>();
+        for (Aresta<TIPO> aresta : mst) {
+            mstGrafo.adicionarVertice(aresta.getInicio().getDado());
+            mstGrafo.adicionarVertice(aresta.getFim().getDado());
+            mstGrafo.adicionarAresta(aresta.getPeso(), aresta.getInicio().getDado(), aresta.getFim().getDado());
+        }
+
+        List<TIPO> ciclo = new ArrayList<>();
+        Set<TIPO> visitados = new HashSet<>();
+        Vertice<TIPO> verticeInicial = mstGrafo.getVertices().get(0);
+        gerarCicloDFS(verticeInicial, ciclo, visitados);
+        ciclo.add(verticeInicial.getDado()); // Fechar o ciclo
+
+        return ciclo;
+    }
+
+    private void gerarCicloDFS(Vertice<TIPO> vertice, List<TIPO> ciclo, Set<TIPO> visitados) {
+        visitados.add(vertice.getDado());
+        ciclo.add(vertice.getDado());
+
+        for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
+            Vertice<TIPO> proximo = aresta.getFim();
+            if (!visitados.contains(proximo.getDado())) {
+                gerarCicloDFS(proximo, ciclo, visitados);
+            }
+        }
+    }
+
+    public void imprimirCiclo(List<TIPO> ciclo) {
+        for (int i = 0; i < ciclo.size() - 1; i++) {
+            System.out.println(ciclo.get(i) + " -> " + ciclo.get(i + 1));
+        }
+    }
+
 
     public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));

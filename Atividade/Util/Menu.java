@@ -5,7 +5,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
-    public class MenuGrafo {
+
+    public static class MenuGrafo {
 
         private static Grafo<String> grafo = new Grafo<>();
         private static Scanner scanner = new Scanner(System.in);
@@ -40,19 +41,25 @@ public class Menu {
                         buscaEmProfundidade();
                         break;
                     case 8:
-                        verificarBipartido();
+                        imprimirTemposDFS();
                         break;
                     case 9:
-                        encontrarVR();
+                        verificarBipartido();
                         break;
                     case 10:
-                        executarPrim();
+                        encontrarVR();
                         break;
                     case 11:
-                        executarKruskal();
+                        executarPrim();
                         break;
                     case 12:
+                        executarKruskal();
+                        break;
+                    case 13:
                         executarBoruvka();
+                        break;
+                    case 14:
+                        gerarCicloMinimo();
                         break;
                     case 0:
                         System.out.println("Saindo...");
@@ -73,11 +80,13 @@ public class Menu {
             System.out.println("5. Remover Aresta");
             System.out.println("6. Executar Busca em Largura (BFS)");
             System.out.println("7. Executar Busca em Profundidade (DFS)");
-            System.out.println("8. Verificar se o Grafo é Bipartido");
-            System.out.println("9. Encontrar Vértice Raiz (VR)");
-            System.out.println("10. Gerar MST com Prim");
-            System.out.println("11. Gerar MST com Kruskal");
-            System.out.println("12. Gerar MST com Boruvka");
+            System.out.println("8. Imprimir Tempos de Chegada e Partida da DFS");
+            System.out.println("9. Verificar se o Grafo é Bipartido");
+            System.out.println("10. Encontrar Vértice Raiz (VR)");
+            System.out.println("11. Gerar MST com Prim");
+            System.out.println("12. Gerar MST com Kruskal");
+            System.out.println("13. Gerar MST com Boruvka");
+            System.out.println("14. Gerar Ciclo Mínimo com Base na MST");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
         }
@@ -140,6 +149,11 @@ public class Menu {
             grafo.executarDFS();
         }
 
+        private static void imprimirTemposDFS() {
+            System.out.println("Imprimindo tempos de chegada e partida (DFS):");
+            grafo.imprimirTempos();
+        }
+
         private static void verificarBipartido() {
             System.out.println("Verificando se o grafo é bipartido:");
             grafo.verificarBipartido();
@@ -167,6 +181,11 @@ public class Menu {
             List<Aresta<String>> mst = grafo.algoritmoDeBoruvka();
             grafo.imprimirMST(mst);
         }
-    }
 
+        private static void gerarCicloMinimo() {
+            System.out.println("Gerando Ciclo Mínimo com base na MST:");
+            List<String> ciclo = grafo.gerarCicloMinimo();
+            grafo.imprimirCiclo(ciclo);
+        }
+    }
 }
