@@ -1,201 +1,66 @@
-```markdown
-# Projeto de Implementação de Grafos
+# Projeto de Implementação de Grafos em Java
 
-Este projeto consiste na implementação de um sistema de manipulação de grafos em Java. Ele suporta operações como adicionar e remover vértices e arestas, realizar buscas em largura (BFS) e profundidade (DFS), verificar se o grafo é bipartido, encontrar o vértice raiz (VR) e gerar a árvore geradora mínima (MST) usando os algoritmos de Prim, Kruskal e Boruvka. Além disso, o projeto inclui a funcionalidade de gerar um ciclo mínimo baseado na MST.
+Este projeto consiste na implementação de um sistema para manipulação de grafos em Java, suportando operações como adicionar e remover vértices e arestas, realizar buscas em largura (BFS) e profundidade (DFS), verificar se o grafo é bipartido, encontrar o vértice raiz (VR) e gerar árvores geradoras mínimas (MST) usando os algoritmos de Prim, Kruskal e Boruvka. Além disso, o projeto inclui a funcionalidade de gerar um ciclo mínimo baseado na MST.
 
-## Funcionalidades
+## Funcionalidades ###
 
 ### Operações Básicas
 
-- **Adicionar Vértice**: Adiciona um novo vértice ao grafo, verificando previamente se o vértice já existe para evitar duplicações.
-- **Remover Vértice**: Remove um vértice existente e todas as arestas associadas a ele. Informa se o vértice não foi encontrado.
-- **Adicionar Aresta**: Adiciona uma nova aresta entre dois vértices, garantindo que a aresta não exista previamente.
-- **Remover Aresta**: Remove uma aresta entre dois vértices. Informa se a aresta ou os vértices não foram encontrados.
+- Adicionar Vértice: Adiciona um novo vértice ao grafo, garantindo que o vértice não seja duplicado.
+- Remover Vértice: Remove um vértice existente e todas as arestas associadas a ele, informando o usuário caso o vértice não seja encontrado.
+- Adicionar Aresta: Adiciona uma nova aresta entre dois vértices, verificando previamente se a aresta já existe.
+- Remover Aresta: Remove uma aresta entre dois vértices, informando o usuário caso a aresta ou os vértices não sejam encontrados.
 
 ### Operações de Busca
 
-- **Busca em Largura (BFS)**: Percorre o grafo começando de um vértice inicial, visitando todos os vértices adjacentes antes de mover-se para os próximos níveis.
-- **Busca em Profundidade (DFS)**: Percorre o grafo buscando o caminho mais profundo a partir de cada vértice. Esta função agora também imprime cada componente conectado e a ordem em que os vértices foram visitados.
+- Busca em Largura (BFS): Realiza a busca em largura a partir de um vértice inicial, visitando todos os vértices adjacentes antes de passar para o próximo nível.
+- Busca em Profundidade (DFS): Realiza a busca em profundidade a partir de um vértice, percorrendo o caminho mais longo possível antes de retroceder. A função agora também imprime cada componente conectado e a ordem em que os vértices foram visitados.
 
 ### Verificação e Análise
 
-- **Verificar Grafo Bipartido**: Usa DFS para determinar se o grafo pode ser dividido em dois conjuntos disjuntos, onde não há arestas entre vértices do mesmo conjunto.
-- **Encontrar Vértice Raiz (VR)**: Encontra e imprime o vértice que, a partir de uma busca em profundidade, é capaz de alcançar todos os outros vértices no grafo.
+- Verificar Grafo Bipartido: Verifica, usando DFS, se o grafo pode ser dividido em dois conjuntos disjuntos, onde não há arestas entre vértices do mesmo conjunto.
+- Encontrar Vértice Raiz (VR): Identifica e imprime o vértice que, através de uma busca em profundidade, pode alcançar todos os outros vértices no grafo.
 
 ### Geração de Árvores Geradoras Mínimas (MST)
 
-- **Algoritmo de Prim**: Gera a MST utilizando o algoritmo de Prim, adicionando arestas de menor peso que conectam um novo vértice à árvore já existente.
-- **Algoritmo de Kruskal**: Gera a MST utilizando o algoritmo de Kruskal, que conecta componentes diferentes do grafo até que todos os vértices estejam conectados em uma única árvore.
-- **Algoritmo de Boruvka**: Gera a MST utilizando o algoritmo de Boruvka, adicionando as menores arestas para cada componente até que todos os componentes sejam unidos em uma única árvore.
+- Algoritmo de Prim: Gera a MST utilizando o algoritmo de Prim, selecionando arestas de menor peso que conectam novos vértices à árvore já formada.
+- Algoritmo de Kruskal: Gera a MST utilizando o algoritmo de Kruskal, unindo diferentes componentes do grafo até que todos os vértices estejam conectados em uma única árvore.
+- Algoritmo de Boruvka: Gera a MST utilizando o algoritmo de Boruvka, adicionando as menores arestas para cada componente até que todos os componentes sejam unidos em uma única árvore.
 
 ### Ciclo Mínimo
 
-- **Gerar Ciclo Mínimo**: A partir da MST gerada, este método constrói um ciclo mínimo que passa por todos os vértices da árvore. Utiliza funções auxiliares de DFS e evita a duplicação de vértices e arestas durante o processo.
+- Gerar Ciclo Mínimo: A partir da MST gerada, este método constrói um ciclo mínimo que percorre todos os vértices da árvore. Utiliza funções auxiliares de DFS e evita duplicações de vértices e arestas durante o processo.
 
-## Implementação Técnica
+## Estrutura de Dados
 
-### Estrutura de Dados
+- Vertice: Representa um vértice no grafo, contendo métodos para gerenciar suas arestas de entrada e saída.
+- Aresta: Representa uma aresta que conecta dois vértices no grafo, associada a um peso.
 
-- **Vertice**: Representa um vértice no grafo e contém métodos para gerenciar suas arestas de saída e entrada.
-- **Aresta**: Representa uma aresta que conecta dois vértices no grafo, associada a um peso.
 
-### Funções Auxiliares
+### Execução ###
 
-- **Pesquisar Vértice e Aresta**: Funções para verificar a existência de um vértice ou aresta no grafo.
-- **Obter Adjacentes**: Retorna uma lista dos vértices adjacentes a um dado vértice.
-- **Imprimir Grafo**: Exibe a estrutura atual do grafo, listando cada vértice seguido de seus vértices adjacentes.
+Compile o código Java e execute o programa principal. O sistema apresentará um menu interativo onde você pode selecionar as operações desejadas.
 
-### Melhorias Recentes
-
-- **Refatoração das Funções DFS e MST**: As funções DFS e de geração de MST foram otimizadas para evitar duplicações e garantir uma execução mais eficiente.
-- **Remoção de Mensagens em Funções Auxiliares**: Funções auxiliares para adicionar vértices e arestas sem mensagens de confirmação foram implementadas para uso em operações que não requerem feedback ao usuário.
-- **Correção de Bugs no Algoritmo de Boruvka**: Foram feitas melhorias no algoritmo de Boruvka para corrigir problemas de loop infinito e garantir a correta união de componentes.
-
-## Como Usar
-
-### Execução do Projeto
-
-Para executar o projeto, compile o código Java e execute o programa principal. O sistema apresentará um menu interativo onde você pode selecionar as operações que deseja realizar no grafo.
-
-### Entrada de Dados
-
-Você pode fornecer a estrutura do grafo através de um arquivo de texto formatado da seguinte maneira:
-
-```
-A;B;1.0
-A;C;2.0
-B;D;3.0
-```
+A;B;1.0 A;C;2.0 B;D;3.0
 
 Cada linha representa uma aresta entre dois vértices com um peso associado.
 
 ### Geração de Ciclo Mínimo
 
-Após gerar a MST usando qualquer um dos algoritmos disponíveis, você pode gerar e visualizar o ciclo mínimo que percorre todos os vértices da árvore.
+Após gerar a MST usando um dos algoritmos disponíveis, você pode gerar e visualizar o ciclo mínimo que percorre todos os vértices da árvore.
 
 ## Exemplo de Saída
 
-Aqui está um exemplo de saída para uma execução que utiliza DFS, verifica se o grafo é bipartido e gera a MST usando o algoritmo de Prim:
+Aqui está um exemplo de execução que realiza DFS, verifica se o grafo é bipartido e gera a MST usando o algoritmo de Prim:
 
-```
-Execução DFS: 
-DFS a partir do vértice A: A B D 
-DFS a partir do vértice E: E F G 
-Resultado -> O VR é: Vértice A
-O grafo É bipartido: Partição 1 [A, C, E] e Partição 2 [B, D, F]
-MST Gerada:
-A -- B : 1.0
-A -- C : 2.0
-B -- D : 3.0
-```
+Execução DFS: DFS a partir do vértice A: A B D DFS a partir do vértice E: E F G Resultado -> O VR é: Vértice A O grafo É bipartido: Partição 1 [A, C, E] e Partição 2 [B, D, F] MST Gerada: A -- B : 1.0 A -- C : 2.0 B -- D : 3.0
 
-## Contribuição
 
-Sinta-se à vontade para abrir issues e enviar pull requests para melhorias e correções no projeto.
+## Contribuições
 
-## Licença
-
-Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-```
-
-Este README oferece uma visão abrangente do projeto, cobrindo suas funcionalidades, implementação técnica, exemplos de uso e melhorias recentes.Aqui está o README.md atualizado para o projeto, incluindo todas as atualizações e melhorias recentes no código:
-
-```markdown
-# Projeto de Implementação de Grafos
-
-Este projeto consiste na implementação de um sistema de manipulação de grafos em Java. Ele suporta operações como adicionar e remover vértices e arestas, realizar buscas em largura (BFS) e profundidade (DFS), verificar se o grafo é bipartido, encontrar o vértice raiz (VR) e gerar a árvore geradora mínima (MST) usando os algoritmos de Prim, Kruskal e Boruvka. Além disso, o projeto inclui a funcionalidade de gerar um ciclo mínimo baseado na MST.
-
-## Funcionalidades
-
-### Operações Básicas
-
-- **Adicionar Vértice**: Adiciona um novo vértice ao grafo, verificando previamente se o vértice já existe para evitar duplicações.
-- **Remover Vértice**: Remove um vértice existente e todas as arestas associadas a ele. Informa se o vértice não foi encontrado.
-- **Adicionar Aresta**: Adiciona uma nova aresta entre dois vértices, garantindo que a aresta não exista previamente.
-- **Remover Aresta**: Remove uma aresta entre dois vértices. Informa se a aresta ou os vértices não foram encontrados.
-
-### Operações de Busca
-
-- **Busca em Largura (BFS)**: Percorre o grafo começando de um vértice inicial, visitando todos os vértices adjacentes antes de mover-se para os próximos níveis.
-- **Busca em Profundidade (DFS)**: Percorre o grafo buscando o caminho mais profundo a partir de cada vértice. Esta função agora também imprime cada componente conectado e a ordem em que os vértices foram visitados.
-
-### Verificação e Análise
-
-- **Verificar Grafo Bipartido**: Usa DFS para determinar se o grafo pode ser dividido em dois conjuntos disjuntos, onde não há arestas entre vértices do mesmo conjunto.
-- **Encontrar Vértice Raiz (VR)**: Encontra e imprime o vértice que, a partir de uma busca em profundidade, é capaz de alcançar todos os outros vértices no grafo.
-
-### Geração de Árvores Geradoras Mínimas (MST)
-
-- **Algoritmo de Prim**: Gera a MST utilizando o algoritmo de Prim, adicionando arestas de menor peso que conectam um novo vértice à árvore já existente.
-- **Algoritmo de Kruskal**: Gera a MST utilizando o algoritmo de Kruskal, que conecta componentes diferentes do grafo até que todos os vértices estejam conectados em uma única árvore.
-- **Algoritmo de Boruvka**: Gera a MST utilizando o algoritmo de Boruvka, adicionando as menores arestas para cada componente até que todos os componentes sejam unidos em uma única árvore.
-
-### Ciclo Mínimo
-
-- **Gerar Ciclo Mínimo**: A partir da MST gerada, este método constrói um ciclo mínimo que passa por todos os vértices da árvore. Utiliza funções auxiliares de DFS e evita a duplicação de vértices e arestas durante o processo.
-
-## Implementação Técnica
-
-### Estrutura de Dados
-
-- **Vertice**: Representa um vértice no grafo e contém métodos para gerenciar suas arestas de saída e entrada.
-- **Aresta**: Representa uma aresta que conecta dois vértices no grafo, associada a um peso.
-
-### Funções Auxiliares
-
-- **Pesquisar Vértice e Aresta**: Funções para verificar a existência de um vértice ou aresta no grafo.
-- **Obter Adjacentes**: Retorna uma lista dos vértices adjacentes a um dado vértice.
-- **Imprimir Grafo**: Exibe a estrutura atual do grafo, listando cada vértice seguido de seus vértices adjacentes.
-
-### Melhorias Recentes
-
-- **Refatoração das Funções DFS e MST**: As funções DFS e de geração de MST foram otimizadas para evitar duplicações e garantir uma execução mais eficiente.
-- **Remoção de Mensagens em Funções Auxiliares**: Funções auxiliares para adicionar vértices e arestas sem mensagens de confirmação foram implementadas para uso em operações que não requerem feedback ao usuário.
-- **Correção de Bugs no Algoritmo de Boruvka**: Foram feitas melhorias no algoritmo de Boruvka para corrigir problemas de loop infinito e garantir a correta união de componentes.
-
-## Como Usar
-
-### Execução do Projeto
-
-Para executar o projeto, compile o código Java e execute o programa principal. O sistema apresentará um menu interativo onde você pode selecionar as operações que deseja realizar no grafo.
+Contribuições são bem-vindas! Sinta-se à vontade para abrir issues e enviar pull requests com melhorias e correções.
 
 ### Entrada de Dados
 
-Você pode fornecer a estrutura do grafo através de um arquivo de texto formatado da seguinte maneira:
+A estrutura do grafo pode ser fornecida por um arquivo de texto com o seguinte formato: txt
 
-```
-A;B;1.0
-A;C;2.0
-B;D;3.0
-```
-
-Cada linha representa uma aresta entre dois vértices com um peso associado.
-
-### Geração de Ciclo Mínimo
-
-Após gerar a MST usando qualquer um dos algoritmos disponíveis, você pode gerar e visualizar o ciclo mínimo que percorre todos os vértices da árvore.
-
-## Exemplo de Saída
-
-Aqui está um exemplo de saída para uma execução que utiliza DFS, verifica se o grafo é bipartido e gera a MST usando o algoritmo de Prim:
-
-```
-Execução DFS: 
-DFS a partir do vértice A: A B D 
-DFS a partir do vértice E: E F G 
-Resultado -> O VR é: Vértice A
-O grafo É bipartido: Partição 1 [A, C, E] e Partição 2 [B, D, F]
-MST Gerada:
-A -- B : 1.0
-A -- C : 2.0
-B -- D : 3.0
-```
-
-## Contribuição
-
-Sinta-se à vontade para abrir issues e enviar pull requests para melhorias e correções no projeto.
-
-## Licença
-
-Este projeto é licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-```
