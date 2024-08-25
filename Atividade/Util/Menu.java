@@ -17,7 +17,7 @@ public class Menu {
             int opcao;
             do {
                 System.out.println("\n--- Menu de Operações no Grafo ---");
-                System.out.println("1. Adições e Remoções");
+                System.out.println("1. Adições, Remoções, Pesquisa, Imprimir e Obter Adjacentes");
                 System.out.println("2. Buscar");
                 System.out.println("3. Bipartido e Raiz");
                 System.out.println("4. Algoritmos");
@@ -210,7 +210,6 @@ public class Menu {
             System.out.print("Digite o nome do vértice: ");
             String vertice = scanner.nextLine();
             grafo.adicionarVertice(vertice);
-            System.out.println("Vértice adicionado com sucesso!");
         }
 
         private static void removerVertice() {
@@ -229,7 +228,6 @@ public class Menu {
             scanner.nextLine(); // Consumir a nova linha
 
             grafo.adicionarAresta(peso, inicio, fim);
-            System.out.println("Aresta adicionada com sucesso!");
         }
 
         private static void removerAresta() {
@@ -305,7 +303,6 @@ public class Menu {
         }
 
         private static void encontrarVR() {
-            System.out.println("Verificando se há um vértice raiz (VR):");
             grafo.encontrarVR();
         }
 
@@ -332,7 +329,6 @@ public class Menu {
 //======================================================================================================================
 
         private static void gerarCicloMinimo() {
-            System.out.println("Gerando Ciclo Mínimo com base na MST:");
             List<String> ciclo = grafo.gerarCicloMinimo();
             grafo.imprimirCiclo(ciclo);
         }

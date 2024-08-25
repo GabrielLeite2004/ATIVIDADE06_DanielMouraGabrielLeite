@@ -168,24 +168,31 @@ public class Grafo<TIPO> {
     public void executarDFS() {
         inicializarTempos(); // Inicializa os arrays de tempos
         this.tempo = 0;
+        Set<Vertice<TIPO>> visitados = new HashSet<>(); // Conjunto para rastrear vértices visitados
 
         for (int i = 0; i < vertices.size(); i++) {
             if (tempoChegada[i] == -1) {
-                MétodoRecursivoDFS(i);
+                System.out.print("DFS a partir do vértice " + vertices.get(i).getDado() + ": ");
+                MétodoRecursivoDFS(i, visitados);
+                System.out.println(); // Para quebrar a linha entre os componentes
             }
         }
-        this.imprimirTempos();
     }
 
-    private void MétodoRecursivoDFS(int indiceVertice) {
+    private void MétodoRecursivoDFS(int indiceVertice, Set<Vertice<TIPO>> visitados) {
         tempo++;
         tempoChegada[indiceVertice] = tempo;
 
         Vertice<TIPO> vertice = vertices.get(indiceVertice);
+        visitados.add(vertice); // Marca o vértice como visitado
+        System.out.print(vertice.getDado() + " "); // Imprime o vértice na mesma linha
+
         for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
             int indiceProximo = vertices.indexOf(aresta.getFim());
-            if (tempoChegada[indiceProximo] == -1) {
-                MétodoRecursivoDFS(indiceProximo);
+            if (!visitados.contains(vertices.get(indiceProximo))) { // Verifica se o vértice já foi visitado
+                if (tempoChegada[indiceProximo] == -1) {
+                    MétodoRecursivoDFS(indiceProximo, visitados);
+                }
             }
         }
 
@@ -198,6 +205,7 @@ public class Grafo<TIPO> {
     // Método para encontrar e imprimir o VR
     public void encontrarVR() {
         // Executar DFS para obter os tempos de partida
+        System.out.println("Execução DFS: ");
         executarDFS();
 
         // Encontrar o vértice com o maior tempo de partida
@@ -211,6 +219,7 @@ public class Grafo<TIPO> {
             }
         }
 
+        System.out.print("Resultado -> ");
         // Verificar se o candidato a VR pode alcançar todos os vértices
         if (candidatoVR != -1) {
             ArrayList<Integer> visitados = new ArrayList<>();
@@ -240,7 +249,7 @@ public class Grafo<TIPO> {
     }
 
 //======================================================================================================================
-
+    
     // Método para verificar se o grafo é bipartido usando DFS
     public boolean verificarBipartido() {
         int n = vertices.size();
@@ -425,6 +434,8 @@ public class Grafo<TIPO> {
                     if (componenteU != componenteV) {
                         mst.add(aresta);
                         unir(componentes, componenteU, componenteV);
+
+                        // Reduz o número de componentes restantes
                         componentesRestantes--;
                     }
                 }
@@ -447,22 +458,22 @@ public class Grafo<TIPO> {
         List<Aresta<TIPO>> mst = this.algoritmoDePrim(); // Use o algoritmo que preferir
         Grafo<TIPO> mstGrafo = new Grafo<>();
 
-        // Adicionar vértices e arestas ao mstGrafo sem duplicações
+        // Adicionar vértices e arestas ao mstGrafo sem duplicações e sem mensagens
         for (Aresta<TIPO> aresta : mst) {
             TIPO inicioDado = aresta.getInicio().getDado();
             TIPO fimDado = aresta.getFim().getDado();
 
             // Adicionar vértices somente se ainda não existirem
             if (!mstGrafo.pesquisarVertice(inicioDado)) {
-                mstGrafo.adicionarVertice(inicioDado);
+                mstGrafo.adicionarVerticeSemMensagem(inicioDado);
             }
             if (!mstGrafo.pesquisarVertice(fimDado)) {
-                mstGrafo.adicionarVertice(fimDado);
+                mstGrafo.adicionarVerticeSemMensagem(fimDado);
             }
 
             // Adicionar a aresta somente se ainda não existir
             if (!mstGrafo.pesquisarAresta(inicioDado, fimDado)) {
-                mstGrafo.adicionarAresta(aresta.getPeso(), inicioDado, fimDado);
+                mstGrafo.adicionarArestaSemMensagem(aresta.getPeso(), inicioDado, fimDado);
             }
         }
 
@@ -475,6 +486,7 @@ public class Grafo<TIPO> {
         return ciclo;
     }
 
+    // Função auxiliar para DFS na MST
     private void gerarCicloDFS(Vertice<TIPO> vertice, List<TIPO> ciclo, Set<TIPO> visitados) {
         visitados.add(vertice.getDado());
         ciclo.add(vertice.getDado());
@@ -488,10 +500,12 @@ public class Grafo<TIPO> {
     }
 
     public void imprimirCiclo(List<TIPO> ciclo) {
+        System.out.println("Ciclo Mínimo Gerado:");
         for (int i = 0; i < ciclo.size() - 1; i++) {
             System.out.println(ciclo.get(i) + " -> " + ciclo.get(i + 1));
         }
     }
+
 
 //======================================================================================================================
 
@@ -515,9 +529,9 @@ public class Grafo<TIPO> {
             TIPO verticeB = (TIPO) partes[1];
             double peso = Double.parseDouble(partes[2]);
 
-            adicionarVertice(verticeA);
-            adicionarVertice(verticeB);
-            adicionarAresta(peso, verticeA, verticeB);
+            adicionarVerticeSemMensagem(verticeA);
+            adicionarVerticeSemMensagem(verticeB);
+            adicionarArestaSemMensagem(peso, verticeA, verticeB);
         }
         reader.close();
     }
@@ -571,4 +585,22 @@ public class Grafo<TIPO> {
         }
         return vertice;
     }
+
+    // Função para adicionar vértice sem mensagem
+    public void adicionarVerticeSemMensagem(TIPO dado) {
+        Vertice<TIPO> novoVertice = new Vertice<>(dado);
+        this.vertices.add(novoVertice);
+    }
+
+    // Função para adicionar aresta sem mensagem
+    public void adicionarArestaSemMensagem(Double peso, TIPO dadoInicio, TIPO dadoFim) {
+        Vertice<TIPO> inicio = this.getVertice(dadoInicio);
+        Vertice<TIPO> fim = this.getVertice(dadoFim);
+
+        Aresta<TIPO> aresta = new Aresta<>(peso, inicio, fim);
+        inicio.adicionarArestaSaida(aresta);
+        fim.adicionarArestaEntrada(aresta);
+        this.arestas.add(aresta);
+    }
+
 }
