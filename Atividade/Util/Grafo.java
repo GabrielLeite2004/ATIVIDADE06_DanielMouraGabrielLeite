@@ -405,7 +405,7 @@ public class Grafo<TIPO> {
 
         // Verifica se o grafo é conexo
         if (!isConexo()) {
-            System.out.println("O grafo não é conexo, portanto não é possível gerar uma árvore geradora mínima.");
+            System.out.println("O grafo não é conexo, portanto não é possível gerar uma árvore geradora mínima no algoritmo de Boruvka.");
             return mst; // Retorna uma MST vazia
         }
 
