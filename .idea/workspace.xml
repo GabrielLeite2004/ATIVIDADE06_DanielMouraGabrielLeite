@@ -5,7 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4b9dd8a7-22a8-45ee-ba1f-1cdba03c7f19" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Atividade/Util/Grafo.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Util/Grafo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Arquivos/Arquivo" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Arquivos/Arquivo" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Util/EstudoDeCaso.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/Util/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/Util/Menu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Atividade/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Atividade/main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/EstudoDeCaso.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/Menu$MenuGrafo.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Grafos/Atividade/Util/Menu$MenuGrafo.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,10 +49,11 @@
     "Application.EstudoDeCaso.executor": "Run",
     "Application.Grafo.executor": "Run",
     "Application.GrafoDirecionado.executor": "Run",
+    "Application.Menu$MenuGrafo.executor": "Run",
     "Application.MenuDFS.executor": "Debug",
     "Application.MenuVR.executor": "Debug",
     "Application.VerificaBipartido.executor": "Run",
-    "Application.main.executor": "Debug",
+    "Application.main.executor": "Run",
     "Application.o.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -63,6 +72,26 @@
       <recent name="Atividade.Q3" />
       <recent name="Atividade.Q2" />
     </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Menu$MenuGrafo" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Atividade.Util.Menu$MenuGrafo" />
+      <module name="Grafos" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Atividade.Util.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Menu$MenuGrafo" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

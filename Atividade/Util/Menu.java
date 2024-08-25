@@ -12,6 +12,7 @@ public class Menu {
         private static Scanner scanner = new Scanner(System.in);
 
         public static void main(String[] args) {
+            carregarGrafo(); // Carrega o grafo do arquivo no início
             int opcao;
             do {
                 exibirMenu();
@@ -20,45 +21,42 @@ public class Menu {
 
                 switch (opcao) {
                     case 1:
-                        lerGrafoDeArquivo();
-                        break;
-                    case 2:
                         adicionarVertice();
                         break;
-                    case 3:
+                    case 2:
                         removerVertice();
                         break;
-                    case 4:
+                    case 3:
                         adicionarAresta();
                         break;
-                    case 5:
+                    case 4:
                         removerAresta();
                         break;
-                    case 6:
+                    case 5:
                         buscaEmLargura();
                         break;
-                    case 7:
+                    case 6:
                         buscaEmProfundidade();
                         break;
-                    case 8:
+                    case 7:
                         imprimirTemposDFS();
                         break;
-                    case 9:
+                    case 8:
                         verificarBipartido();
                         break;
-                    case 10:
+                    case 9:
                         encontrarVR();
                         break;
-                    case 11:
+                    case 10:
                         executarPrim();
                         break;
-                    case 12:
+                    case 11:
                         executarKruskal();
                         break;
-                    case 13:
+                    case 12:
                         executarBoruvka();
                         break;
-                    case 14:
+                    case 13:
                         gerarCicloMinimo();
                         break;
                     case 0:
@@ -73,27 +71,25 @@ public class Menu {
 
         private static void exibirMenu() {
             System.out.println("\n--- Menu de Operações no Grafo ---");
-            System.out.println("1. Ler Grafo de Arquivo");
-            System.out.println("2. Adicionar Vértice");
-            System.out.println("3. Remover Vértice");
-            System.out.println("4. Adicionar Aresta");
-            System.out.println("5. Remover Aresta");
-            System.out.println("6. Executar Busca em Largura (BFS)");
-            System.out.println("7. Executar Busca em Profundidade (DFS)");
-            System.out.println("8. Imprimir Tempos de Chegada e Partida da DFS");
-            System.out.println("9. Verificar se o Grafo é Bipartido");
-            System.out.println("10. Encontrar Vértice Raiz (VR)");
-            System.out.println("11. Gerar MST com Prim");
-            System.out.println("12. Gerar MST com Kruskal");
-            System.out.println("13. Gerar MST com Boruvka");
-            System.out.println("14. Gerar Ciclo Mínimo com Base na MST");
+            System.out.println("1. Adicionar Vértice");
+            System.out.println("2. Remover Vértice");
+            System.out.println("3. Adicionar Aresta");
+            System.out.println("4. Remover Aresta");
+            System.out.println("5. Executar Busca em Largura (BFS)");
+            System.out.println("6. Executar Busca em Profundidade (DFS)");
+            System.out.println("7. Imprimir Tempos de Chegada e Partida da DFS");
+            System.out.println("8. Verificar se o Grafo é Bipartido");
+            System.out.println("9. Encontrar Vértice Raiz (VR)");
+            System.out.println("10. Gerar MST com Prim");
+            System.out.println("11. Gerar MST com Kruskal");
+            System.out.println("12. Gerar MST com Boruvka");
+            System.out.println("13. Gerar Ciclo Mínimo com Base na MST");
             System.out.println("0. Sair");
             System.out.print("Escolha uma opção: ");
         }
 
-        private static void lerGrafoDeArquivo() {
-            System.out.print("Digite o caminho do arquivo: ");
-            String caminhoArquivo = scanner.nextLine();
+        private static void carregarGrafo() {
+            String caminhoArquivo = "Atividade\\Arquivos\\Arquivo";
             try {
                 grafo.lerGrafoDeArquivo(caminhoArquivo);
                 System.out.println("Grafo carregado com sucesso!");

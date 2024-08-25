@@ -423,7 +423,17 @@ public class Grafo<TIPO> {
         String linha;
 
         while ((linha = reader.readLine()) != null) {
+            linha = linha.trim(); // Remove espaços em branco no início e no final
+            if (linha.isEmpty()) {
+                continue; // Ignora linhas vazias
+            }
+
             String[] partes = linha.split(";");
+            if (partes.length != 3) {
+                System.err.println("Linha malformada: " + linha);
+                continue; // Ignora linhas malformadas
+            }
+
             TIPO verticeA = (TIPO) partes[0];
             TIPO verticeB = (TIPO) partes[1];
             double peso = Double.parseDouble(partes[2]);
@@ -434,5 +444,6 @@ public class Grafo<TIPO> {
         }
         reader.close();
     }
+
 
 }
