@@ -1,8 +1,4 @@
-package Atividade.Q6;
-
-import Atividade.Q1.Aresta;
-import Atividade.Q1.Grafo;
-import Atividade.Q1.Vertice;
+package Atividade.Util;
 
 import java.io.IOException;
 import java.util.*;

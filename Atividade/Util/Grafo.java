@@ -1,4 +1,4 @@
-package Atividade.Q1;
+package Atividade.Util;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -17,16 +17,6 @@ public class Grafo<TIPO> {
         this.vertices = new ArrayList<>();
         this.arestas = new ArrayList<>();
         this.tempo = 0;
-    }
-
-    public void inicializarTempos() {
-        int n = this.vertices.size();
-        this.tempoChegada = new int[n];
-        this.tempoPartida = new int[n];
-        for (int i = 0; i < n; i++) {
-            this.tempoChegada[i] = -1;
-            this.tempoPartida[i] = -1;
-        }
     }
 
     public void adicionarVertice(TIPO dado){
@@ -62,18 +52,6 @@ public class Grafo<TIPO> {
             inicio.getArestasSaida().removeIf(aresta -> aresta.getFim().equals(fim));
             fim.getArestasEntrada().removeIf(aresta -> aresta.getInicio().equals(inicio));
         }
-    }
-
-
-    public Vertice<TIPO> getVertice(TIPO dado){
-        Vertice<TIPO> vertice = null;
-        for(int i=0; i < this.vertices.size(); i++){
-            if (this.vertices.get(i).getDado().equals(dado)){
-                vertice = this.vertices.get(i);
-                break;
-            }
-        }
-        return vertice;
     }
 
     public boolean pesquisarVertice(TIPO dado) {
@@ -112,6 +90,31 @@ public class Grafo<TIPO> {
             }
             System.out.println();
         }
+    }
+
+    public void inicializarTempos() {
+        int n = this.vertices.size();
+        this.tempoChegada = new int[n];
+        this.tempoPartida = new int[n];
+        for (int i = 0; i < n; i++) {
+            this.tempoChegada[i] = -1;
+            this.tempoPartida[i] = -1;
+        }
+    }
+
+    public ArrayList<Vertice<TIPO>> getVertices() {
+        return this.vertices;
+    }
+
+    public Vertice<TIPO> getVertice(TIPO dado){
+        Vertice<TIPO> vertice = null;
+        for(int i=0; i < this.vertices.size(); i++){
+            if (this.vertices.get(i).getDado().equals(dado)){
+                vertice = this.vertices.get(i);
+                break;
+            }
+        }
+        return vertice;
     }
 
     public void buscaEmLargura(){
@@ -265,23 +268,6 @@ public class Grafo<TIPO> {
         System.out.println("O grafo É bipartido: Partição 1 " + particao1 + " e Partição 2 " + particao2);
     }
 
-    public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
-        String linha;
-
-        while ((linha = reader.readLine()) != null) {
-            String[] partes = linha.split(";");
-            TIPO verticeA = (TIPO) partes[0];
-            TIPO verticeB = (TIPO) partes[1];
-            double peso = Double.parseDouble(partes[2]);
-
-            adicionarVertice(verticeA);
-            adicionarVertice(verticeB);
-            adicionarAresta(peso, verticeA, verticeB);
-        }
-        reader.close();
-    }
-
     // Algoritmo de Prim
     public List<Aresta<TIPO>> algoritmoDePrim() {
         PriorityQueue<Aresta<TIPO>> arestasDisponiveis = new PriorityQueue<>(Comparator.comparing(Aresta::getPeso));
@@ -388,6 +374,23 @@ public class Grafo<TIPO> {
         for (Aresta<TIPO> aresta : mst) {
             System.out.println(aresta.getInicio().getDado() + " -- " + aresta.getFim().getDado() + " : " + aresta.getPeso());
         }
+    }
+
+    public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
+        BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
+        String linha;
+
+        while ((linha = reader.readLine()) != null) {
+            String[] partes = linha.split(";");
+            TIPO verticeA = (TIPO) partes[0];
+            TIPO verticeB = (TIPO) partes[1];
+            double peso = Double.parseDouble(partes[2]);
+
+            adicionarVertice(verticeA);
+            adicionarVertice(verticeB);
+            adicionarAresta(peso, verticeA, verticeB);
+        }
+        reader.close();
     }
 
 }

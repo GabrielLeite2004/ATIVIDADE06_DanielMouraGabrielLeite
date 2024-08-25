@@ -1,4 +1,4 @@
-package Atividade.Q1;
+package Atividade.Util;
 
 public class Aresta<TIPO> {
     private Double peso;

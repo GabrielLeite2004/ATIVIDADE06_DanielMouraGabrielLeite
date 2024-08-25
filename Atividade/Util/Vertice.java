@@ -1,4 +1,4 @@
-package Atividade.Q1;
+package Atividade.Util;
 
 import java.util.ArrayList;
 
