@@ -168,30 +168,38 @@ public class Grafo<TIPO> {
     public void executarDFS() {
         inicializarTempos(); // Inicializa os arrays de tempos
         this.tempo = 0;
-        Set<Vertice<TIPO>> visitados = new HashSet<>(); // Conjunto para rastrear vértices visitados
+        ArrayList<Vertice<TIPO>> visitados = new ArrayList<>(); // Lista para rastrear vértices visitados
 
         for (int i = 0; i < vertices.size(); i++) {
             if (tempoChegada[i] == -1) {
-                System.out.print("DFS a partir do vértice " + vertices.get(i).getDado() + ": ");
-                MétodoRecursivoDFS(i, visitados);
-                System.out.println(); // Para quebrar a linha entre os componentes
+                List<TIPO> componenteAtual = new ArrayList<>();
+                MétodoRecursivoDFS(i, visitados, componenteAtual);
+
+                // Se o componente tem mais de um vértice, imprimimos
+                if (componenteAtual.size() > 1) {
+                    System.out.print("DFS a partir do vértice " + vertices.get(i).getDado() + ": ");
+                    for (TIPO vertice : componenteAtual) {
+                        System.out.print(vertice + " ");
+                    }
+                    System.out.println();
+                }
             }
         }
     }
 
-    private void MétodoRecursivoDFS(int indiceVertice, Set<Vertice<TIPO>> visitados) {
+    private void MétodoRecursivoDFS(int indiceVertice, ArrayList<Vertice<TIPO>> visitados, List<TIPO> componenteAtual) {
         tempo++;
         tempoChegada[indiceVertice] = tempo;
 
         Vertice<TIPO> vertice = vertices.get(indiceVertice);
         visitados.add(vertice); // Marca o vértice como visitado
-        System.out.print(vertice.getDado() + " "); // Imprime o vértice na mesma linha
+        componenteAtual.add(vertice.getDado()); // Adiciona o vértice ao componente atual
 
         for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
             int indiceProximo = vertices.indexOf(aresta.getFim());
             if (!visitados.contains(vertices.get(indiceProximo))) { // Verifica se o vértice já foi visitado
                 if (tempoChegada[indiceProximo] == -1) {
-                    MétodoRecursivoDFS(indiceProximo, visitados);
+                    MétodoRecursivoDFS(indiceProximo, visitados, componenteAtual);
                 }
             }
         }
@@ -205,7 +213,6 @@ public class Grafo<TIPO> {
     // Método para encontrar e imprimir o VR
     public void encontrarVR() {
         // Executar DFS para obter os tempos de partida
-        System.out.println("Execução DFS: ");
         executarDFS();
 
         // Encontrar o vértice com o maior tempo de partida
@@ -247,6 +254,7 @@ public class Grafo<TIPO> {
             }
         }
     }
+
 
 //======================================================================================================================
     
@@ -395,6 +403,12 @@ public class Grafo<TIPO> {
     public List<Aresta<TIPO>> algoritmoDeBoruvka() {
         List<Aresta<TIPO>> mst = new ArrayList<>();
 
+        // Verifica se o grafo é conexo
+        if (!isConexo()) {
+            System.out.println("O grafo não é conexo, portanto não é possível gerar uma árvore geradora mínima.");
+            return mst; // Retorna uma MST vazia
+        }
+
         // Array para rastrear o componente ao qual cada vértice pertence
         int[] componentes = new int[vertices.size()];
 
@@ -411,8 +425,8 @@ public class Grafo<TIPO> {
 
             // Encontrar a menor aresta que conecta dois componentes diferentes
             for (Aresta<TIPO> aresta : arestas) {
-                int componenteU = encontrar(componentes, vertices.indexOf(aresta.getInicio()));
-                int componenteV = encontrar(componentes, vertices.indexOf(aresta.getFim()));
+                int componenteU = encontrarComponente(componentes, vertices.indexOf(aresta.getInicio()));
+                int componenteV = encontrarComponente(componentes, vertices.indexOf(aresta.getFim()));
 
                 if (componenteU != componenteV) {
                     // Verifica e armazena a menor aresta para cada componente
@@ -428,12 +442,12 @@ public class Grafo<TIPO> {
             // Adicionar as arestas de menor custo à MST e unir os componentes
             for (Aresta<TIPO> aresta : menorArestaPorComponente) {
                 if (aresta != null) {
-                    int componenteU = encontrar(componentes, vertices.indexOf(aresta.getInicio()));
-                    int componenteV = encontrar(componentes, vertices.indexOf(aresta.getFim()));
+                    int componenteU = encontrarComponente(componentes, vertices.indexOf(aresta.getInicio()));
+                    int componenteV = encontrarComponente(componentes, vertices.indexOf(aresta.getFim()));
 
                     if (componenteU != componenteV) {
                         mst.add(aresta);
-                        unir(componentes, componenteU, componenteV);
+                        unirComponentes(componentes, componenteU, componenteV);
 
                         // Reduz o número de componentes restantes
                         componentesRestantes--;
@@ -478,7 +492,7 @@ public class Grafo<TIPO> {
         }
 
         List<TIPO> ciclo = new ArrayList<>();
-        Set<TIPO> visitados = new HashSet<>();
+        ArrayList<TIPO> visitados = new ArrayList<>();
         Vertice<TIPO> verticeInicial = mstGrafo.getVertices().get(0);
         gerarCicloDFS(verticeInicial, ciclo, visitados);
         ciclo.add(verticeInicial.getDado()); // Fechar o ciclo
@@ -487,7 +501,7 @@ public class Grafo<TIPO> {
     }
 
     // Função auxiliar para DFS na MST
-    private void gerarCicloDFS(Vertice<TIPO> vertice, List<TIPO> ciclo, Set<TIPO> visitados) {
+    private void gerarCicloDFS(Vertice<TIPO> vertice, List<TIPO> ciclo, ArrayList<TIPO> visitados) {
         visitados.add(vertice.getDado());
         ciclo.add(vertice.getDado());
 
@@ -498,6 +512,7 @@ public class Grafo<TIPO> {
             }
         }
     }
+
 
     public void imprimirCiclo(List<TIPO> ciclo) {
         System.out.println("Ciclo Mínimo Gerado:");
@@ -601,6 +616,42 @@ public class Grafo<TIPO> {
         inicio.adicionarArestaSaida(aresta);
         fim.adicionarArestaEntrada(aresta);
         this.arestas.add(aresta);
+    }
+
+    // Verifica se o grafo é conexo usando DFS
+    private boolean isConexo() {
+        ArrayList<Vertice<TIPO>> visitados = new ArrayList<>();
+        dfsConectividade(vertices.get(0), visitados);
+        return visitados.size() == vertices.size();
+    }
+
+    // Realiza DFS para verificar a conectividade
+    private void dfsConectividade(Vertice<TIPO> vertice, ArrayList<Vertice<TIPO>> visitados) {
+        visitados.add(vertice);
+        for (Aresta<TIPO> aresta : vertice.getArestasSaida()) {
+            Vertice<TIPO> proximo = aresta.getFim();
+            if (!visitados.contains(proximo)) {
+                dfsConectividade(proximo, visitados);
+            }
+        }
+    }
+
+
+    // Encontra o componente ao qual o vértice pertence
+    private int encontrarComponente(int[] componentes, int vertice) {
+        if (componentes[vertice] != vertice) {
+            componentes[vertice] = encontrarComponente(componentes, componentes[vertice]); // Compressão de caminho
+        }
+        return componentes[vertice];
+    }
+
+    // Une dois componentes em um
+    private void unirComponentes(int[] componentes, int componenteU, int componenteV) {
+        for (int i = 0; i < componentes.length; i++) {
+            if (componentes[i] == componenteV) {
+                componentes[i] = componenteU;
+            }
+        }
     }
 
 }
