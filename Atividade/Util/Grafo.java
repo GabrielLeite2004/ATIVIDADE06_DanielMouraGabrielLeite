@@ -18,6 +18,8 @@ public class Grafo<TIPO> {
         this.tempo = 0;
     }
 
+//======================================================================================================================
+
     public void adicionarVertice(TIPO dado) {
         // Verificar se o vértice já existe
         for (Vertice<TIPO> vertice : vertices) {
@@ -65,8 +67,7 @@ public class Grafo<TIPO> {
 
         // Verificar se a aresta já existe
         for (Aresta<TIPO> aresta : this.arestas) {
-            if ((aresta.getInicio().equals(inicio) && aresta.getFim().equals(fim)) ||
-                    (aresta.getInicio().equals(fim) && aresta.getFim().equals(inicio))) {
+            if ((aresta.getInicio().equals(inicio) && aresta.getFim().equals(fim)) || (aresta.getInicio().equals(fim) && aresta.getFim().equals(inicio))) {
                 System.out.println("Aresta entre '" + dadoInicio + "' e '" + dadoFim + "' já existe.");
                 return; // Não adiciona a aresta se já existir
             }
@@ -141,38 +142,9 @@ public class Grafo<TIPO> {
         }
     }
 
-    public void inicializarTempos() {
-        int n = this.vertices.size();
-        this.tempoChegada = new int[n];
-        this.tempoPartida = new int[n];
-        for (int i = 0; i < n; i++) {
-            this.tempoChegada[i] = -1;
-            this.tempoPartida[i] = -1;
-        }
-    }
+//======================================================================================================================
 
-    public void imprimirTempos() {
-        for (int i = 0; i < vertices.size(); i++) {
-            System.out.println(vertices.get(i).getDado() + " (Chegada: " + tempoChegada[i] + ", Partida: " + tempoPartida[i] + ")");
-        }
-    }
-
-    public ArrayList<Vertice<TIPO>> getVertices() {
-        return this.vertices;
-    }
-
-    public Vertice<TIPO> getVertice(TIPO dado){
-        Vertice<TIPO> vertice = null;
-        for(int i=0; i < this.vertices.size(); i++){
-            if (this.vertices.get(i).getDado().equals(dado)){
-                vertice = this.vertices.get(i);
-                break;
-            }
-        }
-        return vertice;
-    }
-
-    public void buscaEmLargura(){
+    public void ExecutarBFS(){
         ArrayList<Vertice<TIPO>> marcados = new ArrayList<Vertice<TIPO>>();
         ArrayList<Vertice<TIPO>> fila = new ArrayList<Vertice<TIPO>>();
         Vertice<TIPO> atual = this.vertices.get(0);
@@ -193,7 +165,6 @@ public class Grafo<TIPO> {
         }
     }
 
-    // Método para executar DFS e calcular os tempos de chegada e partida
     public void executarDFS() {
         inicializarTempos(); // Inicializa os arrays de tempos
         this.tempo = 0;
@@ -203,9 +174,9 @@ public class Grafo<TIPO> {
                 MétodoRecursivoDFS(i);
             }
         }
+        this.imprimirTempos();
     }
 
-    // Método recursivo para DFS
     private void MétodoRecursivoDFS(int indiceVertice) {
         tempo++;
         tempoChegada[indiceVertice] = tempo;
@@ -222,14 +193,7 @@ public class Grafo<TIPO> {
         tempoPartida[indiceVertice] = tempo;
     }
 
-    // Método para verificar se um vértice é raiz
-    private boolean VerificarSeÉRaiz(int indiceVertice) {
-        // Realizar DFS a partir deste vértice para verificar se ele alcança todos os outros
-        ArrayList<Integer> visitados = new ArrayList<>();
-        dfsVerificarRaiz(indiceVertice, visitados);
-
-        return visitados.size() == vertices.size();
-    }
+//======================================================================================================================
 
     // Método para encontrar e imprimir o VR
     public void encontrarVR() {
@@ -275,12 +239,7 @@ public class Grafo<TIPO> {
         }
     }
 
-    private Vertice<TIPO> encontrarRaiz(Map<Vertice<TIPO>, Vertice<TIPO>> pais, Vertice<TIPO> vertice) {
-        while (!pais.get(vertice).equals(vertice)) {
-            vertice = pais.get(vertice);
-        }
-        return vertice;
-    }
+//======================================================================================================================
 
     // Método para verificar se o grafo é bipartido usando DFS
     public boolean verificarBipartido() {
@@ -336,6 +295,8 @@ public class Grafo<TIPO> {
 
         System.out.println("O grafo É bipartido: Partição 1 " + particao1 + " e Partição 2 " + particao2);
     }
+
+//======================================================================================================================
 
     // Algoritmo de Prim
     public List<Aresta<TIPO>> algoritmoDePrim() {
@@ -480,13 +441,29 @@ public class Grafo<TIPO> {
         }
     }
 
+//======================================================================================================================
+
     public List<TIPO> gerarCicloMinimo() {
         List<Aresta<TIPO>> mst = this.algoritmoDePrim(); // Use o algoritmo que preferir
         Grafo<TIPO> mstGrafo = new Grafo<>();
+
+        // Adicionar vértices e arestas ao mstGrafo sem duplicações
         for (Aresta<TIPO> aresta : mst) {
-            mstGrafo.adicionarVertice(aresta.getInicio().getDado());
-            mstGrafo.adicionarVertice(aresta.getFim().getDado());
-            mstGrafo.adicionarAresta(aresta.getPeso(), aresta.getInicio().getDado(), aresta.getFim().getDado());
+            TIPO inicioDado = aresta.getInicio().getDado();
+            TIPO fimDado = aresta.getFim().getDado();
+
+            // Adicionar vértices somente se ainda não existirem
+            if (!mstGrafo.pesquisarVertice(inicioDado)) {
+                mstGrafo.adicionarVertice(inicioDado);
+            }
+            if (!mstGrafo.pesquisarVertice(fimDado)) {
+                mstGrafo.adicionarVertice(fimDado);
+            }
+
+            // Adicionar a aresta somente se ainda não existir
+            if (!mstGrafo.pesquisarAresta(inicioDado, fimDado)) {
+                mstGrafo.adicionarAresta(aresta.getPeso(), inicioDado, fimDado);
+            }
         }
 
         List<TIPO> ciclo = new ArrayList<>();
@@ -515,6 +492,8 @@ public class Grafo<TIPO> {
             System.out.println(ciclo.get(i) + " -> " + ciclo.get(i + 1));
         }
     }
+
+//======================================================================================================================
 
     public void lerGrafoDeArquivo(String caminhoArquivo) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(caminhoArquivo));
@@ -560,5 +539,36 @@ public class Grafo<TIPO> {
                 representante[i] = conjuntoU;
             }
         }
+    }
+
+    public void inicializarTempos() {
+        int n = this.vertices.size();
+        this.tempoChegada = new int[n];
+        this.tempoPartida = new int[n];
+        for (int i = 0; i < n; i++) {
+            this.tempoChegada[i] = -1;
+            this.tempoPartida[i] = -1;
+        }
+    }
+
+    public void imprimirTempos() {
+        for (int i = 0; i < vertices.size(); i++) {
+            System.out.println(vertices.get(i).getDado() + " (Chegada: " + tempoChegada[i] + ", Partida: " + tempoPartida[i] + ")");
+        }
+    }
+
+    public ArrayList<Vertice<TIPO>> getVertices() {
+        return this.vertices;
+    }
+
+    public Vertice<TIPO> getVertice(TIPO dado){
+        Vertice<TIPO> vertice = null;
+        for(int i=0; i < this.vertices.size(); i++){
+            if (this.vertices.get(i).getDado().equals(dado)){
+                vertice = this.vertices.get(i);
+                break;
+            }
+        }
+        return vertice;
     }
 }

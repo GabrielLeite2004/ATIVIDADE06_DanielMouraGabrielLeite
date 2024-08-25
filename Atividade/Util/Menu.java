@@ -1,6 +1,7 @@
 package Atividade.Util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,7 +16,14 @@ public class Menu {
             carregarGrafo(); // Carrega o grafo do arquivo no início
             int opcao;
             do {
-                exibirMenuPrincipal();
+                System.out.println("\n--- Menu de Operações no Grafo ---");
+                System.out.println("1. Adições e Remoções");
+                System.out.println("2. Buscar");
+                System.out.println("3. Bipartido e Raiz");
+                System.out.println("4. Algoritmos");
+                System.out.println("5. Gerar Ciclo Mínimo com Base na MST");
+                System.out.println("0. Sair");
+                System.out.print("Escolha uma opção: ");
                 opcao = scanner.nextInt();
                 scanner.nextLine(); // Consumir a nova linha
 
@@ -45,17 +53,6 @@ public class Menu {
             } while (opcao != 0);
         }
 
-        private static void exibirMenuPrincipal() {
-            System.out.println("\n--- Menu de Operações no Grafo ---");
-            System.out.println("1. Adições e Remoções");
-            System.out.println("2. Buscar");
-            System.out.println("3. Bipartido e Raiz");
-            System.out.println("4. Algoritmos de MST");
-            System.out.println("5. Gerar Ciclo Mínimo com Base na MST");
-            System.out.println("0. Sair");
-            System.out.print("Escolha uma opção: ");
-        }
-
         private static void menuAdicoesRemocoes() {
             int opcao;
             do {
@@ -66,6 +63,8 @@ public class Menu {
                 System.out.println("4. Remover Aresta");
                 System.out.println("5. Pesquisar Vértice");
                 System.out.println("6. Pesquisar Aresta");
+                System.out.println("7. Obter Adjacentes");
+                System.out.println("8. Imprimir Grafo");
                 System.out.println("0. Voltar ao Menu Principal");
                 System.out.print("Escolha uma opção: ");
                 opcao = scanner.nextInt();
@@ -90,12 +89,19 @@ public class Menu {
                     case 6:
                         pesquisarAresta();
                         break;
+                    case 7:
+                        obterAdjacentes();
+                        break;
+                    case 8:
+                        imprimirGrafo();
+                        break;
                     case 0:
-                        System.out.println("Voltando ao Menu Principal...");
+                        System.out.println("Saindo...");
                         break;
                     default:
                         System.out.println("Opção inválida! Tente novamente.");
                 }
+
             } while (opcao != 0);
         }
 
@@ -186,6 +192,8 @@ public class Menu {
             } while (opcao != 0);
         }
 
+//======================================================================================================================
+
         private static void carregarGrafo() {
             String caminhoArquivo = "Atividade\\Arquivos\\Arquivo";
             try {
@@ -195,6 +203,8 @@ public class Menu {
                 System.err.println("Erro ao ler o arquivo: " + e.getMessage());
             }
         }
+
+//======================================================================================================================
 
         private static void adicionarVertice() {
             System.out.print("Digite o nome do vértice: ");
@@ -255,15 +265,39 @@ public class Menu {
             }
         }
 
+        private static void obterAdjacentes() {
+            System.out.print("Digite o nome do vértice: ");
+            String vertice = scanner.nextLine();
+            ArrayList<Vertice<String>> adjacentes = grafo.obterAdjacentes(vertice);
+
+            if (adjacentes.isEmpty()) {
+                System.out.println("Nenhum vértice adjacente encontrado ou o vértice não existe.");
+            } else {
+                System.out.println("Vértices adjacentes a '" + vertice + "':");
+                for (Vertice<String> adjacente : adjacentes) {
+                    System.out.println(adjacente.getDado());
+                }
+            }
+        }
+
+        private static void imprimirGrafo() {
+            System.out.println("Imprimindo o Grafo:");
+            grafo.imprimirGrafo();
+        }
+
+//======================================================================================================================
+
         private static void buscaEmLargura() {
             System.out.println("Executando busca em largura (BFS):");
-            grafo.buscaEmLargura();
+            grafo.ExecutarBFS();
         }
 
         private static void buscaEmProfundidade() {
             System.out.println("Executando busca em profundidade (DFS):");
             grafo.executarDFS();
         }
+
+//======================================================================================================================
 
         private static void verificarBipartido() {
             System.out.println("Verificando se o grafo é bipartido:");
@@ -274,6 +308,8 @@ public class Menu {
             System.out.println("Verificando se há um vértice raiz (VR):");
             grafo.encontrarVR();
         }
+
+//======================================================================================================================
 
         private static void executarPrim() {
             System.out.println("Gerando Árvore Geradora Mínima com Prim:");
@@ -292,6 +328,8 @@ public class Menu {
             List<Aresta<String>> mst = grafo.algoritmoDeBoruvka();
             grafo.imprimirMST(mst);
         }
+
+//======================================================================================================================
 
         private static void gerarCicloMinimo() {
             System.out.println("Gerando Ciclo Mínimo com base na MST:");
