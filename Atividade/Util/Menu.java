@@ -18,9 +18,9 @@ public class Menu {
             do {
                 System.out.println("\n--- Menu de Operações no Grafo ---");
                 System.out.println("1. Adições, Remoções, Pesquisa, Imprimir e Obter Adjacentes");
-                System.out.println("2. Buscar");
-                System.out.println("3. Bipartido e Raiz");
-                System.out.println("4. Algoritmos");
+                System.out.println("2. Buscar (DFS e BFS)");
+                System.out.println("3. Se ele é Bipartido e Encontrar Vértice Raiz");
+                System.out.println("4. Algoritmos (Prim, Kruskal e Boruvka)");
                 System.out.println("5. Gerar Ciclo Mínimo com Base na MST");
                 System.out.println("0. Sair");
                 System.out.print("Escolha uma opção: ");
